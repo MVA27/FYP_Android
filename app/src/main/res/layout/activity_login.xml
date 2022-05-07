@@ -11,7 +11,9 @@
         android:layout_height="match_parent"
         >
 
+        <!-- User Name -->
         <EditText
+            android:id="@+id/id_login_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="user name"
@@ -34,7 +36,9 @@
             android:layout_centerInParent="true"
             />
 
+        <!-- Password -->
         <EditText
+            android:id="@+id/id_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password"
@@ -50,7 +54,9 @@
             android:padding="10dp"
             />
 
+        <!-- Register User Icon -->
         <ImageView
+            android:id="@+id/id_login_register_user_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_register_user"
@@ -60,7 +66,7 @@
             />
 
         <Button
-            android:id="@+id/log_in_button_id"
+            android:id="@+id/id_log_in_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

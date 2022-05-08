@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ActivityDisplay extends AppCompatActivity {
 

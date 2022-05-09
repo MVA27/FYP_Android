@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import static com.android.rtems.Constants.Server.*;
@@ -19,6 +21,7 @@ public class VerifyUser extends Thread{
     Editable userName,password;
     Handler handler;
     ProgressBar progressBar;
+
 
     public VerifyUser(Context context,Intent intent,Editable userName,Editable password,Handler handler,ProgressBar progressBar){
         this.context = context;         //To call startActivity() method from Thread (Non-Activity class)
@@ -39,11 +42,20 @@ public class VerifyUser extends Thread{
         });
 
         //STEP 2 : Start Networking Operation
-        try {
-            String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+filePath+"?userName="+userName+"&userPassword="+password;
+        try{
+            String parameters = "userName="+userName+"&userPassword="+password;
+            String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+filePath;
 
             URL url = new URL(link);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            //POST METHOD
+            connection.getDoOutput();
+            connection.setRequestMethod("POST");
+            try(OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream())){
+                writer.write(parameters);
+                writer.flush();
+            }
 
             int status = connection.getResponseCode();
             int seconds = 0;

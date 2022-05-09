@@ -11,6 +11,17 @@
         android:layout_height="match_parent"
         >
 
+        <!-- Register User Icon -->
+        <ImageView
+            android:id="@+id/id_login_register_user_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_register_user"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            />
+
         <!-- User Name -->
         <EditText
             android:id="@+id/id_login_user_name"
@@ -25,8 +36,10 @@
             android:layout_marginRight="20dp"
             android:autoSizeTextType="uniform"
             android:textSize="15dp"
-            android:textColorHint="#FFFFFF"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             android:padding="10dp"
+            android:inputType="text"
             />
 
         <View
@@ -50,19 +63,10 @@
             android:layout_marginRight="20dp"
             android:autoSizeTextType="uniform"
             android:textSize="15dp"
-            android:textColorHint="#FFFFFF"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             android:padding="10dp"
-            />
-
-        <!-- Register User Icon -->
-        <ImageView
-            android:id="@+id/id_login_register_user_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_register_user"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
+            android:inputType="textPassword"
             />
 
         <ProgressBar

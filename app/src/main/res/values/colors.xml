@@ -2,12 +2,21 @@
 <resources>
 
     <color name="colorPrimaryDark">#C62368</color> <!-- Dark Pink : Status Bar color -->
-    <color name="card">#2b5876</color> <!-- Dark Blue : Parameter Card Color  -->
-    <color name="card_text">#FFFFFF</color> <!-- White : Parameter Card Text Color  -->
+    <color name="colorPrimary">@color/deepBlue</color>
+    <color name="colorAccent">@color/darkBlue</color>
 
-    <!--Un-used-->
+    <!-- Progress Bar color in : @drawable/background_progress_bar.xml-->
+    <color name="darkBlue">#5433ff</color>
+    <color name="mediumBlue">#4364f7</color>
+    <color name="lightBlue">#6fb1fc</color>
+
+    <!-- Card View in Display Activity-->
+    <color name="card_background">@color/deepBlue</color> <!-- Dark Blue : Parameter Card Color  -->
+    <color name="card_text">@color/white</color> <!-- White : Parameter Card Text Color  -->
+
+    <!-- Define colors here-->
+    <color name="deepBlue">#2b5876</color>
+    <color name="white">#FFFFFF</color>
     <color name="red">#F43E43</color>
-    <color name="colorPrimary">#239BEC</color>
-    <color name="colorAccent">#03DAC5</color>
 
 </resources>

@@ -124,7 +124,7 @@
             android:textSize="15dp"
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
-            android:inputType="number"
+            android:inputType="date"
             />
 
         <!-- Phone Number -->
@@ -147,7 +147,7 @@
             />
 
         <Button
-            android:id="@+id/id_register_in_button"
+            android:id="@+id/id_register_register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

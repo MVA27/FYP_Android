@@ -6,10 +6,15 @@ import java.util.regex.Pattern;
 
 public class Validation {
 
+    /*
+    STEP 1 : Check if input is empty
+    STEP 2 : Perform pattern matching
+    */
+
     private Pattern pattern;
     private Matcher matcher;
 
-    Predicate<String> isInvalid = target -> {
+    private Predicate<String> isInvalid = target -> {
         int length = 30;
         if(target.length() > length) return true;
         else if(target.isEmpty()) return true;
@@ -17,7 +22,6 @@ public class Validation {
     };
 
     public boolean validateName(String target){
-        System.out.println("target Name = "+target+" len = "+isInvalid.test(target));
 
         if(isInvalid.test(target)) return false;
 
@@ -35,7 +39,6 @@ public class Validation {
     }
 
     public boolean validatePassword(String target){
-        System.out.println("target Pswd= "+target);
 
         if(isInvalid.test(target)) return false;
 
@@ -63,7 +66,6 @@ public class Validation {
     }
 
     public boolean validateAge(String target){
-        System.out.println("target Age = "+target);
 
         if(isInvalid.test(target)) return false;
 
@@ -82,7 +84,6 @@ public class Validation {
     }
 
     public boolean validatePhoneNumber(String target){
-        System.out.println("target Num = "+target);
 
         //TODO : if(target.length() != 10) return false;
 

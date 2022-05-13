@@ -33,31 +33,26 @@ public class ActivityRegisterUser extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!validation.validateName(firstName.getText().toString())) {
-                    Toast.makeText(ActivityRegisterUser.this, R.string.toast_name, Toast.LENGTH_LONG).show();
-                }
-                else{
-                    if(!validation.validateName(lastName.getText().toString())) {
-                        Toast.makeText(ActivityRegisterUser.this, R.string.toast_name, Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        if(!validation.validatePassword(password.getText().toString())) {
+                if(validation.validateName(firstName.getText().toString().trim())) { // First Name
+                    if(validation.validateName(lastName.getText().toString().trim())) { // Last Name
+                        if(validation.validatePassword(password.getText().toString().trim())) { // Password
+                            if(validation.validateAge(age.getText().toString().trim())) { // Age
+                                if(validation.validatePhoneNumber(phoneNumber.getText().toString().trim())) { // Phone Number
+                                    Toast.makeText(ActivityRegisterUser.this, "Valid", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(ActivityRegisterUser.this, R.string.toast_phone_number, Toast.LENGTH_LONG).show();
+                                }
+                            } else{
+                                Toast.makeText(ActivityRegisterUser.this, R.string.toast_age, Toast.LENGTH_LONG).show();
+                            }
+                        } else{
                             Toast.makeText(ActivityRegisterUser.this, R.string.toast_password, Toast.LENGTH_LONG).show();
                         }
-                        else{
-                            if(!validation.validatePhoneNumber(phoneNumber.getText().toString())) {
-                                Toast.makeText(ActivityRegisterUser.this, R.string.toast_phone_number, Toast.LENGTH_LONG).show();
-                            }
-                            else{
-                                if(!validation.validateAge(age.getText().toString())) {
-                                    Toast.makeText(ActivityRegisterUser.this, R.string.toast_age, Toast.LENGTH_LONG).show();
-                                }
-                                else {
-                                    Toast.makeText(ActivityRegisterUser.this, "Valid", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
+                    } else{
+                        Toast.makeText(ActivityRegisterUser.this, R.string.toast_name, Toast.LENGTH_LONG).show();
                     }
+                } else{
+                    Toast.makeText(ActivityRegisterUser.this, R.string.toast_name, Toast.LENGTH_LONG).show();
                 }
             }
         });

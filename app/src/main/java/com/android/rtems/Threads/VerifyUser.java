@@ -18,11 +18,11 @@ public class VerifyUser extends Thread{
 
     Intent intent;
     Context context;
-    Editable userName,password;
+    String userName,password;
     Handler handler;
     ProgressBar progressBar;
 
-    public VerifyUser(Context context,Intent intent,Editable userName,Editable password,Handler handler,ProgressBar progressBar){
+    public VerifyUser(Context context,Intent intent,String userName,String password,Handler handler,ProgressBar progressBar){
         this.context = context;         //To call startActivity() method from Thread (Non-Activity class)
         this.intent = intent;           //To move to new Activity
         this.userName = userName;

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.rtems.Threads.VerifyUser;
+import com.android.rtems.utils.Validation;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +25,24 @@ public class ActivityLogIn extends AppCompatActivity {
     EditText userName,password;
     ProgressBar progressBar;
     Handler handler = new Handler();
+
+    //Inheritance performed to customize a method
+    Validation validation = new Validation(){
+
+        @Override
+        public boolean validateUserName(String target) {
+
+            if(target.isEmpty()) return false;
+            if(target.length() > 30) return false;
+
+            Pattern pattern = Pattern.compile("[^a-zA-Z]");
+            Matcher matcher = pattern.matcher(target);
+
+            if(matcher.find()) return false;
+
+            return true;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +58,23 @@ public class ActivityLogIn extends AppCompatActivity {
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //STEP 1 : Check if input fields are empty
-                if(userName.getText().length() != 0){
-                    if(password.getText().length() != 0){
 
-                        //STEP 2 : Perform Validation using Regular Expressions
-                        if(validateInput(userName.getText(),password.getText())){
+                String un = userName.getText().toString().trim();
+                String pswd = password.getText().toString().trim();
 
-                            //STEP 3 : Make Intent object and pass it to the thread
-                            Intent intent = new Intent(ActivityLogIn.this, ActivityDisplay.class);
-                            new VerifyUser(ActivityLogIn.this,intent,userName.getText(),password.getText(),handler,progressBar).start();
-                        }
+                //STEP 1 : Perform Validation using Regular Expressions
+                if(validation.validateUserName(un)){
+                    if(validation.validatePassword(pswd)){
+
+                        //STEP 2 : Make Intent object and pass it to the thread
+                        Intent intent = new Intent(ActivityLogIn.this, ActivityDisplay.class);
+                        new VerifyUser(ActivityLogIn.this,intent,un,pswd,handler,progressBar).start();
+
+                    } else {
+                        Toast.makeText(ActivityLogIn.this, R.string.toast_password, Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Toast.makeText(ActivityLogIn.this, "Enter Password", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    Toast.makeText(ActivityLogIn.this, "Enter User Name", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ActivityLogIn.this, R.string.toast_user_name, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -69,26 +87,5 @@ public class ActivityLogIn extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    public boolean validateInput(Editable userName,Editable password){
-
-        String userNameRegx = "[a-zA-Z]+"; //TODO : implement proper regular expression
-        Pattern pattern = Pattern.compile(userNameRegx);
-        Matcher matcher = pattern.matcher(userName.toString());
-        if(!matcher.find()){
-            Toast.makeText(this, "Invalid User Name", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        String passwordRegx = "[a-zA-Z0-9]+"; //TODO : implement proper regular expression
-        pattern = Pattern.compile(passwordRegx);
-        matcher = pattern.matcher(password.toString());
-        if(!matcher.find()){
-            Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
     }
 }

@@ -25,29 +25,50 @@ public class ActivityLogIn extends AppCompatActivity {
     EditText userName,password;
     ProgressBar progressBar;
     Handler handler = new Handler();
+    Validation validation;
 
-    //Inheritance performed to customize a method
-    Validation validation = new Validation(){
+    private void validate(){
+        //Inheritance performed to customize a method
+        validation = new Validation(new Handler(),Toast.makeText(this,"",Toast.LENGTH_LONG)){
 
-        @Override
-        public boolean validateUserName(String target) {
+            int maxLength = 30;
+            int minLength = 1;
 
-            if(target.isEmpty()) return false;
-            if(target.length() > 30) return false;
+            @Override
+            public boolean validateUserName(String target) {
 
-            Pattern pattern = Pattern.compile("[^a-zA-Z]");
-            Matcher matcher = pattern.matcher(target);
+                if(target.length() > maxLength) return error(R.string.toast_user_name_length_max);
+                if(target.length() < minLength) return error(R.string.toast_user_name_length_min);;
 
-            if(matcher.find()) return false;
+                Pattern pattern = Pattern.compile("[^a-zA-Z]");
+                Matcher matcher = pattern.matcher(target);
+                if(matcher.find()) return error(R.string.toast_user_name);
 
-            return true;
+                return true;
+            }
+        };
+
+        String un = userName.getText().toString().trim();
+        String pswd = password.getText().toString().trim();
+
+        //STEP 1 : Perform Validation using Regular Expressions
+        if(validation.validateUserName(un)){
+            if(validation.validatePassword(pswd)){
+
+                //STEP 2 : Make Intent object and pass it to the thread
+                Intent intent = new Intent(ActivityLogIn.this, ActivityDisplay.class);
+                new VerifyUser(ActivityLogIn.this,intent,un,pswd,handler,progressBar).start();
+
+            }
         }
-    };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         buttonLogIn = findViewById(R.id.id_login_log_in_button);
         imageViewRegisterUser = findViewById(R.id.id_login_register_user_button);
@@ -59,23 +80,8 @@ public class ActivityLogIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String un = userName.getText().toString().trim();
-                String pswd = password.getText().toString().trim();
+                validate();
 
-                //STEP 1 : Perform Validation using Regular Expressions
-                if(validation.validateUserName(un)){
-                    if(validation.validatePassword(pswd)){
-
-                        //STEP 2 : Make Intent object and pass it to the thread
-                        Intent intent = new Intent(ActivityLogIn.this, ActivityDisplay.class);
-                        new VerifyUser(ActivityLogIn.this,intent,un,pswd,handler,progressBar).start();
-
-                    } else {
-                        Toast.makeText(ActivityLogIn.this, R.string.toast_password, Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(ActivityLogIn.this, R.string.toast_user_name, Toast.LENGTH_SHORT).show();
-                }
             }
         });
 

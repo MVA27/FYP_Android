@@ -3,14 +3,17 @@
 
 
     <!-- Usage : Validation.java -->
+    <!-- First Name / Last Name -->
     <string name="toast_name">Name cannot contain digits or special characters</string>
     <string name="toast_name_length_max">Name must contain maximum 30 characters</string>
     <string name="toast_name_length_min">Name must contain minimum 1 character</string>
 
+    <!-- User Name -->
     <string name="toast_user_name">User name cannot contain digits or special characters</string>
     <string name="toast_user_name_length_max">User name must contain maximum 30 characters</string>
     <string name="toast_user_name_length_min">User name must contain minimum 1 character</string>
 
+    <!-- Password -->
     <string name="toast_password_length_max">Password must contain maximum 30 characters</string>
     <string name="toast_password_length_min">Password must contain minimum 5 characters</string>
     <string name="toast_password_lc">Password must contain at least one lower-case</string>
@@ -18,8 +21,10 @@
     <string name="toast_password_dg">Password must contain at least one digits</string>
     <string name="toast_password_sc">Password must contain at least one special character</string>
 
+    <!-- Age -->
     <string name="toast_age">Enter Valid Age</string>
 
+    <!-- Phone Number -->
     <string name="toast_phone_number">Enter Valid Phone Number</string>
     <string name="toast_phone_number_length_max">Phone Number must contain maximum 10 digits</string>
     <string name="toast_phone_number_length_min">Phone Number must contain minimum 10 digits</string>

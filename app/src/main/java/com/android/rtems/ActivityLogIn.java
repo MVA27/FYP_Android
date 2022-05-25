@@ -29,7 +29,7 @@ public class ActivityLogIn extends AppCompatActivity {
 
     private void validate(){
         //Inheritance performed to customize a method
-        validation = new Validation(new Handler(),Toast.makeText(this,"",Toast.LENGTH_LONG)){
+        validation = new Validation(handler,Toast.makeText(this,"",Toast.LENGTH_LONG)){
 
             int maxLength = 30;
             int minLength = 1;
@@ -68,8 +68,6 @@ public class ActivityLogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
         buttonLogIn = findViewById(R.id.id_login_log_in_button);
         imageViewRegisterUser = findViewById(R.id.id_login_register_user_button);
         userName = findViewById(R.id.id_login_user_name);
@@ -80,8 +78,10 @@ public class ActivityLogIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                validate();
-
+                //validate();
+                Intent intent = new Intent(ActivityLogIn.this, ActivityDisplay.class);
+                startActivity(intent);
+                finish();
             }
         });
 

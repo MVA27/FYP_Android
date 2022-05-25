@@ -2,21 +2,21 @@ package com.android.rtems;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.android.rtems.Threads.RegisterUser;
 import com.android.rtems.utils.Validation;
-
 
 public class ActivityRegisterUser extends AppCompatActivity {
 
     EditText firstName,lastName,userName,password,age,phoneNumber;
     Button register;
     Validation validation;
+    Handler handler = new Handler();
 
     private void validate(){
         validation = new Validation(new Handler(),Toast.makeText(this,"",Toast.LENGTH_LONG));
@@ -52,7 +52,16 @@ public class ActivityRegisterUser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                validate();
+                //validate();
+                new RegisterUser(ActivityRegisterUser.this, handler,
+                        firstName.getText().toString(),
+                        lastName.getText().toString(),
+                        userName.getText().toString(),
+                        password.getText().toString(),
+                        age.getText().toString(),
+                        phoneNumber.getText().toString()
+                ).start();
+
 
             }
         });

@@ -29,8 +29,7 @@ public class Validation {
         this.toast = toast;
     }
 
-    //Displays Toast error message and returns false always
-    public boolean error(int resText){
+    public boolean error(int resText){ //Displays Toast error message and returns false always
         toast.setText(resText);
         handler.post(new Runnable() {
             @Override

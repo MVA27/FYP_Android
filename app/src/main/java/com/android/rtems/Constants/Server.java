@@ -5,6 +5,6 @@ public interface Server {
     public static final String subDomain = "project4y";
     public static final String domain = "000webhostapp";
     public static final String topLevelDomain = "com";
-    public static final String filePath = "/Android/verify_user.php";
+    public static final String folder = "/Android";
 
 }

@@ -94,7 +94,7 @@
         >
 
         <TextView
-            android:id="@+id/textid"
+            android:id="@+id/id_display_temperature_value"
             android:textColor="@color/card_text"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -115,6 +115,7 @@
             android:textSize="25sp"
             />
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:layout_marginLeft="5dp"
         android:id="@+id/cardid2"
@@ -129,7 +130,7 @@
         >
 
         <TextView
-            android:id="@+id/textid2"
+            android:id="@+id/id_display_humidity_value"
             android:textColor="@color/card_text"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -150,7 +151,9 @@
             android:textAlignment="center"
             android:textSize="25sp"
             />
+
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:layout_marginRight="5dp"
         android:id="@+id/cardid3"
@@ -165,12 +168,12 @@
         >
 
         <TextView
-            android:id="@+id/textid3"
+            android:id="@+id/id_display_pressure_value"
             android:textColor="@color/card_text"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6"
+            android:text="100"
             android:textAlignment="center"
             android:textSize="80sp"
             android:paddingTop="15dp"
@@ -187,7 +190,9 @@
             android:textAlignment="center"
             android:textSize="25sp"
             />
+
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:layout_marginLeft="5dp"
         android:id="@+id/cardid4"
@@ -202,6 +207,7 @@
         >
 
         <TextView
+            android:id="@+id/id_display_airquality_value"
             android:textColor="@color/card_text"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -212,7 +218,6 @@
             android:paddingBottom="20dp"
             />
         <TextView
-            android:id="@+id/textid4"
             android:paddingBottom="5dp"
             android:textColor="@color/card_text"
             android:paddingTop="10dp"
@@ -223,6 +228,7 @@
             android:textAlignment="center"
             android:textSize="25sp"
             />
+
     </androidx.cardview.widget.CardView>
 
     <View

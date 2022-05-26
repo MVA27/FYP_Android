@@ -18,7 +18,8 @@ public class ActivityRegisterUser extends AppCompatActivity {
     Validation validation;
     Handler handler = new Handler();
 
-    private void validate(){
+    private boolean validate(){
+
         validation = new Validation(new Handler(),Toast.makeText(this,"",Toast.LENGTH_LONG));
         if(validation.validateName(firstName.getText().toString().trim())) { // First Name
             if(validation.validateName(lastName.getText().toString().trim())) { // Last Name
@@ -26,13 +27,14 @@ public class ActivityRegisterUser extends AppCompatActivity {
                     if(validation.validatePassword(password.getText().toString().trim())) { // Password
                         if(validation.validateAge(age.getText().toString().trim())) { // Age
                             if(validation.validatePhoneNumber(phoneNumber.getText().toString().trim())) { // Phone Number
-                                Toast.makeText(ActivityRegisterUser.this, "Valid", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                }
-            }
-        }
+                                return true;
+                            } else return false;
+                        }else return false;
+                    }else return false;
+                }else return false;
+            }else return false;
+        }else return false;
+
     }
 
     @Override
@@ -52,17 +54,16 @@ public class ActivityRegisterUser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //validate();
-                new RegisterUser(ActivityRegisterUser.this, handler,
-                        firstName.getText().toString(),
-                        lastName.getText().toString(),
-                        userName.getText().toString(),
-                        password.getText().toString(),
-                        age.getText().toString(),
-                        phoneNumber.getText().toString()
-                ).start();
-
-
+                if(validate()){
+                    new RegisterUser(ActivityRegisterUser.this, handler,
+                            firstName.getText().toString(),
+                            lastName.getText().toString(),
+                            userName.getText().toString(),
+                            password.getText().toString(),
+                            age.getText().toString(),
+                            phoneNumber.getText().toString()
+                    ).start();
+                }
             }
         });
     }

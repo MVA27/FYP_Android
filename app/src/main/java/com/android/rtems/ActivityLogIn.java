@@ -78,10 +78,8 @@ public class ActivityLogIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //validate();
-                Intent intent = new Intent(ActivityLogIn.this, ActivityDisplay.class);
-                startActivity(intent);
-                finish();
+                validate();
+
             }
         });
 

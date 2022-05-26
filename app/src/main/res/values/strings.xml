@@ -15,7 +15,7 @@
 
     <!-- Password -->
     <string name="toast_password_length_max">Password must contain maximum 30 characters</string>
-    <string name="toast_password_length_min">Password must contain minimum 5 characters</string>
+    <string name="toast_password_length_min">Password must contain minimum 4 characters</string>
     <string name="toast_password_lc">Password must contain at least one lower-case</string>
     <string name="toast_password_uc">Password must contain at least one upper-case</string>
     <string name="toast_password_dg">Password must contain at least one digits</string>

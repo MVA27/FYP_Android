@@ -1,47 +1,47 @@
 package com.android.rtems.storage;
 
 public class Parameters {
-    private int temperature;
-    private int pressure;
-    private int humidity;
-    private int air_quality;
+    private float temperature;
+    private float pressure;
+    private float humidity;
+    private float air_quality;
 
-    public Parameters(int temperature, int pressure, int humidity, int air_quality) {
+    public Parameters(float temperature, float pressure, float humidity, float air_quality) {
         this.temperature = temperature;
         this.pressure = pressure;
         this.humidity = humidity;
         this.air_quality = air_quality;
     }
 
-    public int getTemperature() {
+    public float getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(int temperature) {
+    public void setTemperature(float temperature) {
         this.temperature = temperature;
     }
 
-    public int getPressure() {
+    public float getPressure() {
         return pressure;
     }
 
-    public void setPressure(int pressure) {
+    public void setPressure(float pressure) {
         this.pressure = pressure;
     }
 
-    public int getHumidity() {
+    public float getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(int humidity) {
+    public void setHumidity(float humidity) {
         this.humidity = humidity;
     }
 
-    public int getAir_quality() {
+    public float getAir_quality() {
         return air_quality;
     }
 
-    public void setAir_quality(int air_quality) {
+    public void setAir_quality(float air_quality) {
         this.air_quality = air_quality;
     }
 }

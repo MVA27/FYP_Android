@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimaryDark">#C62368</color> <!-- Dark Pink : Status Bar color -->
+    <color name="colorPrimaryDark">#C62368</color>  Dark Pink : Status Bar color -->
     <color name="colorPrimary">@color/deepBlue</color>
     <color name="colorAccent">@color/darkBlue</color>
 

@@ -2,18 +2,15 @@ package com.android.rtems.utils;
 
 import android.os.Handler;
 import android.widget.Toast;
-
 import com.android.rtems.R;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation {
-
     /*
     STEP 1 : Check if input is empty
     STEP 2 : Perform pattern matching
     */
-
     private int maxLength = 30;
     private int minLength = 1;
     private Pattern pattern;

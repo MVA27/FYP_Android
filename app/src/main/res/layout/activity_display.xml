@@ -1,241 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_display">
 
     <ImageView
-        android:id="@+id/menu_button_id"
+        android:id="@+id/id_display_settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_settings"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:paddingTop="9dp"
         android:paddingEnd="5dp"
-        />
+        android:src="@drawable/icon_settings" />
 
     <TextView
         android:id="@+id/title_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="48sp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
         android:fontFamily="sans-serif-black"
         android:text="RTEMS"
-        />
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="48sp" />
 
+    <!--center axis-->
     <View
-        android:id="@+id/divider4"
+        android:id="@+id/id_display_center_horizontal"
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
+    <View
+        android:id="@+id/id_display_center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_centerVertical="true" />
+    <!--center axis-->
 
     <View
-        android:layout_below="@id/title_id"
-        android:id="@+id/divider2"
+        android:id="@+id/id_display_top"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@id/title_id"
 
         />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/divider2"
-        android:layout_above="@id/divider5"
-
+        android:layout_above="@id/id_display_center_vertical"
+        android:layout_below="@id/id_display_top"
         >
+
         <ProgressBar
-            android:textAlignment="center"
-            android:padding="30dp"
-            android:id="@+id/proressbar_id"
+            android:id="@+id/id_display_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:theme="@style/progressBar"
+            android:gravity="center_horizontal"
             android:indeterminateOnly="false"
+            android:padding="30dp"
             android:progress="50"
-            android:gravity="center_horizontal" />
+            android:textAlignment="center"
+            android:theme="@style/progressBar" />
 
         <TextView
+            android:id="@+id/id_display_percentage_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/percentage_id"
+            android:gravity="center"
+            android:padding="80dp"
             android:text="90%"
             android:textAlignment="center"
-            android:padding="80dp"
-            app:autoSizeTextType="uniform"
             android:textColor="@color/white"
-            android:gravity="center"
-            />
+            app:autoSizeTextType="uniform" />
+
     </FrameLayout>
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_centerVertical="true"
-        android:id="@+id/divider5"
-        />
-
-    <androidx.cardview.widget.CardView
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@id/cardid3"
-        android:layout_toLeftOf="@id/divider4"
-        android:id="@+id/cardid"
-        android:layout_gravity="center"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="@color/card_background"
+        android:layout_height="match_parent"
+        android:layout_below="@id/id_display_center_vertical"
+        android:padding="6dp"
         >
 
-        <TextView
-            android:id="@+id/id_display_temperature_value"
-            android:textColor="@color/card_text"
-            android:layout_gravity="center"
+        <View
+            android:id="@+id/id_display_inner_center_horizontal"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true" />
+        <View
+            android:id="@+id/id_display_inner_center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="25C"
-            android:textSize="80sp"
-            android:paddingTop="15dp"
-            android:paddingBottom="20dp"
-            />
-        <TextView
-            android:paddingBottom="5dp"
-            android:textColor="@color/card_text"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_margin="5dp"
+            android:id="@+id/id_display_card_temperature"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Temperature"
-            android:layout_gravity="center|bottom"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            />
-    </androidx.cardview.widget.CardView>
+            android:layout_height="match_parent"
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginLeft="5dp"
-        android:id="@+id/cardid2"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@id/cardid4"
-        android:layout_toRightOf="@id/divider4"
-        app:cardBackgroundColor="@color/card_background"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        >
+            android:layout_toStartOf="@id/id_display_inner_center_horizontal"
+            android:layout_above="@id/id_display_inner_center_vertical"
 
-        <TextView
-            android:id="@+id/id_display_humidity_value"
-            android:textColor="@color/card_text"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="45%"
-            android:textSize="80sp"
-            android:paddingTop="15dp"
-            android:paddingBottom="20dp"
-            />
-        <TextView
-            android:paddingBottom="5dp"
-            android:textColor="@color/card_text"
-            android:paddingTop="10dp"
+            app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:id="@+id/id_display_temperature_value"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="25C"
+                android:textColor="@color/card_text"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:paddingBottom="5dp"
+                android:text="Temperature"
+                android:textAlignment="center"
+                android:textColor="@color/card_text"
+                app:autoSizeTextType="uniform" />
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_margin="5dp"
+            android:id="@+id/id_display_card_humidity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Humidity"
-            android:layout_gravity="center|bottom"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            />
+            android:layout_height="match_parent"
 
-    </androidx.cardview.widget.CardView>
+            android:layout_toEndOf="@id/id_display_inner_center_horizontal"
+            android:layout_above="@id/id_display_inner_center_vertical"
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginRight="5dp"
-        android:id="@+id/cardid3"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@id/divider3"
-        android:layout_toLeftOf="@id/divider4"
-        app:cardBackgroundColor="@color/card_background"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        >
+            app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="10dp">
 
-        <TextView
-            android:id="@+id/id_display_pressure_value"
-            android:textColor="@color/card_text"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100"
-            android:textAlignment="center"
-            android:textSize="80sp"
-            android:paddingTop="15dp"
-            android:paddingBottom="20dp"
-            />
-        <TextView
-            android:paddingBottom="5dp"
-            android:textColor="@color/card_text"
-            android:paddingTop="10dp"
+            <TextView
+                android:id="@+id/id_display_humidity_value"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="45%"
+                android:textColor="@color/card_text"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:paddingBottom="5dp"
+                android:text="Humidity"
+                android:textAlignment="center"
+                android:textColor="@color/card_text"
+                app:autoSizeTextType="uniform" />
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_margin="5dp"
+            android:id="@+id/id_display_card_pressure"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pressure"
-            android:layout_gravity="center|bottom"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            />
+            android:layout_height="match_parent"
 
-    </androidx.cardview.widget.CardView>
+            android:layout_toStartOf="@id/id_display_inner_center_horizontal"
+            android:layout_below="@id/id_display_inner_center_vertical"
+            app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="10dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginLeft="5dp"
-        android:id="@+id/cardid4"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@id/divider3"
-        android:layout_toRightOf="@id/divider4"
-        app:cardBackgroundColor="@color/card_background"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        >
+            <TextView
+                android:id="@+id/id_display_pressure_value"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="100"
+                android:textAlignment="center"
+                android:textColor="@color/card_text"
+                app:autoSizeTextType="uniform" />
 
-        <TextView
-            android:id="@+id/id_display_airquality_value"
-            android:textColor="@color/card_text"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100"
-            android:textSize="80sp"
-            android:paddingTop="15dp"
-            android:paddingBottom="20dp"
-            />
-        <TextView
-            android:paddingBottom="5dp"
-            android:textColor="@color/card_text"
-            android:paddingTop="10dp"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:paddingBottom="5dp"
+                android:text="Pressure"
+                android:textAlignment="center"
+                android:textColor="@color/card_text"
+                app:autoSizeTextType="uniform" />
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_margin="5dp"
+            android:id="@+id/id_display_card_airquality"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Air Quality"
-            android:layout_gravity="center|bottom"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            />
+            android:layout_height="match_parent"
 
-    </androidx.cardview.widget.CardView>
+            android:layout_toEndOf="@id/id_display_inner_center_horizontal"
+            android:layout_below="@id/id_display_inner_center_vertical"
+
+            app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:id="@+id/id_display_airquality_value"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="100"
+                android:textColor="@color/card_text"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:paddingBottom="5dp"
+                android:text="Air Quality"
+                android:textAlignment="center"
+                android:textColor="@color/card_text"
+                app:autoSizeTextType="uniform" />
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
 
     <View
-        android:id="@+id/divider3"
+        android:id="@+id/id_display_bottom"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

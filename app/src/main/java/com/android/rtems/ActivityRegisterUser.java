@@ -1,12 +1,12 @@
 package com.android.rtems;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.android.rtems.Threads.RegisterUser;
 import com.android.rtems.utils.Validation;
@@ -14,6 +14,7 @@ import com.android.rtems.utils.Validation;
 public class ActivityRegisterUser extends AppCompatActivity {
 
     EditText firstName,lastName,userName,password,age,phoneNumber;
+    ProgressBar progressBar;
     Button register;
     Validation validation;
     Handler handler = new Handler();
@@ -48,6 +49,7 @@ public class ActivityRegisterUser extends AppCompatActivity {
         password = findViewById(R.id.id_register_password);
         age = findViewById(R.id.id_register_age);
         phoneNumber = findViewById(R.id.id_register_phone_number);
+        progressBar = findViewById(R.id.id_register_progress_bar);
         register = findViewById(R.id.id_register_register_button);
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +57,9 @@ public class ActivityRegisterUser extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(validate()){
-                    new RegisterUser(ActivityRegisterUser.this, handler,
+                    new RegisterUser(ActivityRegisterUser.this,
+                            handler,
+                            progressBar,
                             firstName.getText().toString(),
                             lastName.getText().toString(),
                             userName.getText().toString(),

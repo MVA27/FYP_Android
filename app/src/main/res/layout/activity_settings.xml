@@ -14,25 +14,25 @@
 
         <!-- Title -->
         <TextView
-            android:id="@+id/title_id"
+            android:id="@+id/id_settings_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="48dp"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:fontFamily="sans-serif-black"
-            android:text="Register\nUser"
+            android:text="Set\nThreshold"
             android:paddingTop="20dp"
             />
 
-        <!-- First Name -->
+        <!-- Temperature -->
         <EditText
-            android:id="@+id/id_register_first_name"
+            android:id="@+id/id_settings_edit_text_temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="First Name"
+            android:hint="Temperature"
             android:textAlignment="center"
-            android:layout_above="@id/id_register_last_name"
+            android:layout_above="@id/id_settings_edit_text_pressure"
             android:background="@drawable/background_edit_text"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
@@ -41,45 +41,26 @@
             android:textSize="15dp"
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
-            android:inputType="text"
+            android:inputType="number"
             />
 
-        <!-- Last Name -->
+        <!-- Pressure -->
         <EditText
-            android:id="@+id/id_register_last_name"
+            android:id="@+id/id_settings_edit_text_pressure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Last Name"
-            android:textAlignment="center"
-            android:layout_above="@id/id_register_user_name"
-            android:background="@drawable/background_edit_text"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:autoSizeTextType="uniform"
-            android:textSize="15dp"
-            android:textColorHint="#FFFFFF"
-            android:padding="10dp"
-            android:inputType="text"
-            />
-
-        <!-- User Name -->
-        <EditText
-            android:id="@+id/id_register_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="User Name"
+            android:hint="Pressure"
             android:textAlignment="center"
             android:layout_above="@id/center"
             android:background="@drawable/background_edit_text"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:autoSizeTextType="uniform"
             android:textSize="15dp"
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
-            android:inputType="text"
+            android:inputType="number"
             />
 
         <View
@@ -89,12 +70,12 @@
             android:layout_centerInParent="true"
             />
 
-        <!-- Password -->
+        <!-- Humidity -->
         <EditText
-            android:id="@+id/id_register_password"
+            android:id="@+id/id_settings_edit_text_humidity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="Humidity"
             android:textAlignment="center"
             android:layout_below="@id/center"
             android:background="@drawable/background_edit_text"
@@ -105,17 +86,17 @@
             android:textSize="15dp"
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
-            android:inputType="textPassword"
+            android:inputType="number"
             />
 
-        <!-- Age -->
+        <!-- Air Quality -->
         <EditText
-            android:id="@+id/id_register_age"
+            android:id="@+id/id_settings_edit_text_airquality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Age"
+            android:hint="Air Quality"
             android:textAlignment="center"
-            android:layout_below="@id/id_register_password"
+            android:layout_below="@id/id_settings_edit_text_humidity"
             android:background="@drawable/background_edit_text"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
@@ -124,48 +105,28 @@
             android:textSize="15dp"
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
-            android:inputType="date"
-            />
-
-        <!-- Phone Number -->
-        <EditText
-            android:id="@+id/id_register_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:textAlignment="center"
-            android:layout_below="@id/id_register_age"
-            android:background="@drawable/background_edit_text"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:autoSizeTextType="uniform"
-            android:textSize="15dp"
-            android:textColorHint="#FFFFFF"
-            android:padding="10dp"
-            android:inputType="phone"
+            android:inputType="number"
             />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:id="@+id/id_register_progress_bar"
+            android:id="@+id/id_settings_progress_bar"
             android:layout_centerInParent="true"
-            android:layout_above="@id/id_register_register_button"
+            android:layout_above="@id/id_settings_button_set"
             android:visibility="gone"
             />
 
         <Button
-            android:id="@+id/id_register_register_button"
+            android:id="@+id/id_settings_button_set"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="Register"
+            android:text="Set"
             android:background="@drawable/background_button"
             android:layout_alignParentBottom="true"
             />
 
     </RelativeLayout>
-
 </RelativeLayout>

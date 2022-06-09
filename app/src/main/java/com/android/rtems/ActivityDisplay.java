@@ -2,16 +2,17 @@ package com.android.rtems;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.rtems.Threads.FetchParameters;
-import com.android.rtems.Threads.RegisterUser;
 
 public class ActivityDisplay extends AppCompatActivity {
 
@@ -21,22 +22,33 @@ public class ActivityDisplay extends AppCompatActivity {
     float angle = 1.0F;
 
     TextView temperature,pressure,humidity,airQuality;
+    ImageView settingsButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
 
-        progressBar = findViewById(R.id.proressbar_id);
-        percentage = findViewById(R.id.percentage_id);
+        progressBar = findViewById(R.id.id_display_progress_bar);
+        percentage = findViewById(R.id.id_display_percentage_text);
 
         temperature = findViewById(R.id.id_display_temperature_value);
         pressure = findViewById(R.id.id_display_pressure_value);
         humidity = findViewById(R.id.id_display_humidity_value);
         airQuality = findViewById(R.id.id_display_airquality_value);
+        settingsButton = findViewById(R.id.id_display_settings_button);
+
 
         //3rd Review
-        //new FetchParameters(this,new Handler(),temperature,pressure,humidity,airQuality).start();
+        new FetchParameters(this,new Handler(),progressBar,temperature,pressure,humidity,airQuality).start();
+
+        //
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityDisplay.this,ActivitySettings.class));
+            }
+        });
 
         new Thread(){
             @Override

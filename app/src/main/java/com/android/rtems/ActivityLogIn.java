@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.rtems.Threads.FetchThreshold;
 import com.android.rtems.Threads.VerifyUser;
 import com.android.rtems.utils.Validation;
 
@@ -74,12 +76,13 @@ public class ActivityLogIn extends AppCompatActivity {
         password = findViewById(R.id.id_login_password);
         progressBar = findViewById(R.id.id_login_progress_bar);
 
+        //Start FetchThreshold thread and save threshold values at the beginning
+        new FetchThreshold();
+
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 validate();
-
             }
         });
 

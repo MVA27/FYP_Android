@@ -76,14 +76,13 @@ public class ActivityLogIn extends AppCompatActivity {
         password = findViewById(R.id.id_login_password);
         progressBar = findViewById(R.id.id_login_progress_bar);
 
-        //Start FetchThreshold thread and save threshold values at the beginning
-        new FetchThreshold();
-
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validate();
+                finish();
             }
+
         });
 
         imageViewRegisterUser.setOnClickListener(new View.OnClickListener() {

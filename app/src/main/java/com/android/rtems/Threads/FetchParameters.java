@@ -2,13 +2,11 @@ package com.android.rtems.Threads;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.android.rtems.storage.Parameters;
+import com.android.rtems.storage.Static;
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,7 +21,6 @@ import static com.android.rtems.Constants.Server.topLevelDomain;
 
 public class FetchParameters extends Thread {
 
-    double refreshTime = 10.0D; // in seconds
     Context context;
     Handler handler;
     ProgressBar progressBar;
@@ -58,21 +55,21 @@ public class FetchParameters extends Thread {
 
                 //STEP 3 : Convert JSON object to Java object
                 Gson gson = new Gson();
-                Parameters parameters = gson.fromJson(JSON, Parameters.class);
+                Static.parameters = gson.fromJson(JSON, Parameters.class);
 
                 //STEP 4 : Display the parameters on the screen
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        temperature.setText(String.valueOf(parameters.getTemperature()));
-                        pressure.setText(String.valueOf(parameters.getPressure()));
-                        humidity.setText(String.valueOf(parameters.getHumidity()));
-                        airQuality.setText(String.valueOf(parameters.getAir_quality()));
+                        temperature.setText(String.valueOf(Static.parameters.getTemperature()));
+                        pressure.setText(String.valueOf(Static.parameters.getPressure()));
+                        humidity.setText(String.valueOf(Static.parameters.getHumidity()));
+                        airQuality.setText(String.valueOf(Static.parameters.getAir_quality()));
                     }
                 });
 
                 //STEP 5 : Pause the thread for few seconds and update progress bar
-                pauseThread();
+                pauseThreadUpdateProgress();
 
             }
             catch (IOException | InterruptedException e) {
@@ -81,12 +78,13 @@ public class FetchParameters extends Thread {
         }
     }
 
+    //TODO : Test Refresh Timer Clock for various test cases
     //Refresh Timer Clock
-    public void pauseThread() throws InterruptedException{
+    public void pauseThreadUpdateProgress() throws InterruptedException{
 
-        for(int sec = 1 ; sec <= refreshTime ; sec++){
+        for(int sec = 1; sec <= Static.refreshTime ; sec++){
 
-            int progress = (int)((sec / refreshTime) * 100);
+            int progress = (int)((sec / Static.refreshTime) * 100);
 
             handler.post(new Runnable() {
                 @Override

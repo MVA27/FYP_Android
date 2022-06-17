@@ -21,7 +21,7 @@
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:fontFamily="sans-serif-black"
-            android:text="Set\nThreshold"
+            android:text="Settings"
             android:paddingTop="20dp"
             />
 
@@ -51,9 +51,28 @@
             android:layout_height="wrap_content"
             android:hint="Pressure"
             android:textAlignment="center"
-            android:layout_above="@id/center"
+            android:layout_above="@id/id_settings_edit_text_humidity"
             android:background="@drawable/background_edit_text"
             android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:textColorHint="#FFFFFF"
+            android:padding="10dp"
+            android:inputType="number"
+            />
+
+        <!-- Humidity -->
+        <EditText
+            android:id="@+id/id_settings_edit_text_humidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Humidity"
+            android:textAlignment="center"
+            android:layout_above="@id/center"
+            android:background="@drawable/background_edit_text"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:autoSizeTextType="uniform"
@@ -70,16 +89,16 @@
             android:layout_centerInParent="true"
             />
 
-        <!-- Humidity -->
+        <!-- Air Quality -->
         <EditText
-            android:id="@+id/id_settings_edit_text_humidity"
+            android:id="@+id/id_settings_edit_text_airquality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Humidity"
+            android:hint="Air Quality"
             android:textAlignment="center"
-            android:layout_below="@id/center"
+            android:layout_below="@id/id_settings_edit_text_humidity"
             android:background="@drawable/background_edit_text"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:autoSizeTextType="uniform"
@@ -89,14 +108,14 @@
             android:inputType="number"
             />
 
-        <!-- Air Quality -->
+        <!-- Refresh Timer -->
         <EditText
-            android:id="@+id/id_settings_edit_text_airquality"
+            android:id="@+id/id_settings_edit_text_refreshtimer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Air Quality"
+            android:hint="Refresh Timer"
             android:textAlignment="center"
-            android:layout_below="@id/id_settings_edit_text_humidity"
+            android:layout_below="@id/id_settings_edit_text_airquality"
             android:background="@drawable/background_edit_text"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
@@ -123,10 +142,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:textColor="@color/white"
             android:text="Set"
             android:background="@drawable/background_button"
             android:layout_alignParentBottom="true"
             />
 
     </RelativeLayout>
+
 </RelativeLayout>

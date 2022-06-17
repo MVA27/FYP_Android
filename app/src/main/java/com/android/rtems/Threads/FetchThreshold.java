@@ -1,6 +1,7 @@
 package com.android.rtems.Threads;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,62 +21,35 @@ import static com.android.rtems.Constants.Server.topLevelDomain;
 
 public class FetchThreshold extends Thread {
 
-    Handler handler;
-    EditText temperature,pressure,humidity,airQuality;
-    ProgressBar progressBar;
-
     public FetchThreshold(){}
-    public FetchThreshold(Handler handler, EditText temperature, EditText pressure, EditText humidity, EditText airQuality,ProgressBar progressBar) {
-        this.handler = handler;
-        this.temperature = temperature;
-        this.pressure = pressure;
-        this.humidity = humidity;
-        this.airQuality = airQuality;
-        this.progressBar = progressBar;
-    }
 
     @Override
     public void run() {
 
-        if(progressBar != null) handler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        });
-
         String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/fetch_threshold.php";
 
-        try {
-            URL url = new URL(link);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        while(true) {
+            try {
+                URL url = new URL(link);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String JSON = br.readLine();
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String JSON = br.readLine();
 
-            Gson gson = new Gson();
-            Static.parameters = gson.fromJson(JSON,Parameters.class);;
+                Gson gson = new Gson();
+                Static.threshold = gson.fromJson(JSON,Parameters.class);
 
-            if(temperature != null && pressure != null && humidity != null && airQuality != null) handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    temperature.setHint("Temperature "+Static.parameters.getTemperature());
-                    pressure.setHint("Pressure "+Static.parameters.getPressure());
-                    humidity.setHint("Humidity "+Static.parameters.getHumidity());
-                    airQuality.setHint("Air Quality "+Static.parameters.getAir_quality());
-                }
-            });
+                pauseThread();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if(progressBar != null) handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+    }
 
+    public void pauseThread() throws InterruptedException{
+        for(int sec = 1; sec <= Static.refreshTime ; sec++){
+            Thread.sleep(1000);
+        }
     }
 }

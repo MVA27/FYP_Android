@@ -13,13 +13,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.rtems.Threads.FetchParameters;
+import com.android.rtems.Threads.FetchThreshold;
 
 public class ActivityDisplay extends AppCompatActivity {
 
     ProgressBar progressBar;
     TextView percentage;
-    float angle = 1.0F;
-
     TextView temperature,pressure,humidity,airQuality;
     ImageView settingsButton;
 
@@ -37,8 +36,9 @@ public class ActivityDisplay extends AppCompatActivity {
         airQuality = findViewById(R.id.id_display_airquality_value);
         settingsButton = findViewById(R.id.id_display_settings_button);
 
-        //Fetch Parameters
+        //Fetch Parameters and Thresholds
         new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality).start();
+        new FetchThreshold().start();
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,33 +46,5 @@ public class ActivityDisplay extends AppCompatActivity {
                 startActivity(new Intent(ActivityDisplay.this,ActivitySettings.class));
             }
         });
-
-//        new Thread(){
-//            @Override
-//            public void run() {
-//                while(progress < 100){
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            progressBar.setProgress(++progress);
-//                            percentage.setText(progress+"%");
-//
-//                            if(progress == 100) {
-//                                progress = 0;
-//                                progressBar.setRotation(angle++);
-//                            }
-//                        }
-//                    });
-//
-//                    try {
-//                        Thread.sleep(20);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }.start();
-
-
     }
 }

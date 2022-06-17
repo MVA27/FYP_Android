@@ -2,6 +2,7 @@ package com.android.rtems.Threads;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,15 +23,18 @@ import static com.android.rtems.Constants.Server.topLevelDomain;
 
 public class FetchParameters extends Thread {
 
+    double refreshTime = 10.0D; // in seconds
     Context context;
     Handler handler;
     ProgressBar progressBar;
+    TextView percentage;
     TextView temperature,pressure,humidity,airQuality;
 
-    public FetchParameters(Context context, Handler handler, ProgressBar progressBar, TextView temperature, TextView pressure, TextView humidity, TextView airQuality) {
+    public FetchParameters(Context context, Handler handler, ProgressBar progressBar,TextView percentage, TextView temperature, TextView pressure, TextView humidity, TextView airQuality) {
         this.context = context;
         this.handler = handler;
         this.progressBar = progressBar;
+        this.percentage = percentage;
 
         this.temperature = temperature;
         this.pressure = pressure;
@@ -41,17 +45,22 @@ public class FetchParameters extends Thread {
     @Override
     public void run() {
         String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/fetch_parameters.php";
+
         while(true) {
             try {
+                //STEP 1 : Connect to the server
                 URL url = new URL(link);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
+                //STEP 2 : Fetch the JSON object
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String JSON = br.readLine();
 
+                //STEP 3 : Convert JSON object to Java object
                 Gson gson = new Gson();
                 Parameters parameters = gson.fromJson(JSON, Parameters.class);
 
+                //STEP 4 : Display the parameters on the screen
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -62,10 +71,33 @@ public class FetchParameters extends Thread {
                     }
                 });
 
-                Thread.sleep(10000);
-            } catch (IOException | InterruptedException e) {
+                //STEP 5 : Pause the thread for few seconds and update progress bar
+                pauseThread();
+
+            }
+            catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    //Refresh Timer Clock
+    public void pauseThread() throws InterruptedException{
+
+        for(int sec = 1 ; sec <= refreshTime ; sec++){
+
+            int progress = (int)((sec / refreshTime) * 100);
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setProgress(progress);
+                    percentage.setText(progress+"%");
+                }
+            });
+
+            Thread.sleep(1000);
+        }
+
     }
 }

@@ -16,7 +16,6 @@ import com.android.rtems.Threads.FetchParameters;
 
 public class ActivityDisplay extends AppCompatActivity {
 
-    int progress = 1;
     ProgressBar progressBar;
     TextView percentage;
     float angle = 1.0F;
@@ -38,11 +37,9 @@ public class ActivityDisplay extends AppCompatActivity {
         airQuality = findViewById(R.id.id_display_airquality_value);
         settingsButton = findViewById(R.id.id_display_settings_button);
 
+        //Fetch Parameters
+        new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality).start();
 
-        //3rd Review
-        new FetchParameters(this,new Handler(),progressBar,temperature,pressure,humidity,airQuality).start();
-
-        //
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,31 +47,31 @@ public class ActivityDisplay extends AppCompatActivity {
             }
         });
 
-        new Thread(){
-            @Override
-            public void run() {
-                while(progress < 100){
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.setProgress(++progress);
-                            percentage.setText(progress+"%");
-
-                            if(progress == 100) {
-                                progress = 0;
-                                progressBar.setRotation(angle++);
-                            }
-                        }
-                    });
-
-                    try {
-                        Thread.sleep(20);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                while(progress < 100){
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            progressBar.setProgress(++progress);
+//                            percentage.setText(progress+"%");
+//
+//                            if(progress == 100) {
+//                                progress = 0;
+//                                progressBar.setRotation(angle++);
+//                            }
+//                        }
+//                    });
+//
+//                    try {
+//                        Thread.sleep(20);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }.start();
 
 
     }

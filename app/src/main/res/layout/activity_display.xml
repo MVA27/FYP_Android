@@ -15,6 +15,7 @@
         android:paddingEnd="5dp"
         android:src="@drawable/icon_settings" />
 
+    <!-- Title -->
     <TextView
         android:id="@+id/title_id"
         android:layout_width="match_parent"
@@ -38,6 +39,7 @@
         android:layout_centerVertical="true" />
     <!--center axis-->
 
+    <!-- Top line -->
     <View
         android:id="@+id/id_display_top"
         android:layout_width="match_parent"
@@ -46,6 +48,7 @@
 
         />
 
+    <!-- Progress bar and Percentage -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -77,6 +80,7 @@
 
     </FrameLayout>
 
+    <!-- Parameter Cards -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -230,6 +234,7 @@
 
     </RelativeLayout>
 
+    <!-- Bottom line -->
     <View
         android:id="@+id/id_display_bottom"
         android:layout_width="match_parent"

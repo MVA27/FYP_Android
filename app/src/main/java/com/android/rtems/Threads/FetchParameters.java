@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.cardview.widget.CardView;
+import com.android.rtems.R;
 import com.android.rtems.storage.Parameters;
 import com.android.rtems.storage.Static;
 import com.google.gson.Gson;
@@ -26,8 +28,9 @@ public class FetchParameters extends Thread {
     ProgressBar progressBar;
     TextView percentage;
     TextView temperature,pressure,humidity,airQuality;
+    CardView[] cards;
 
-    public FetchParameters(Context context, Handler handler, ProgressBar progressBar,TextView percentage, TextView temperature, TextView pressure, TextView humidity, TextView airQuality) {
+    public FetchParameters(Context context, Handler handler, ProgressBar progressBar,TextView percentage, TextView temperature, TextView pressure, TextView humidity, TextView airQuality, CardView[] cards) {
         this.context = context;
         this.handler = handler;
         this.progressBar = progressBar;
@@ -37,6 +40,8 @@ public class FetchParameters extends Thread {
         this.pressure = pressure;
         this.humidity = humidity;
         this.airQuality = airQuality;
+
+        this.cards = cards;
     }
 
     @Override
@@ -68,7 +73,10 @@ public class FetchParameters extends Thread {
                     }
                 });
 
-                //STEP 5 : Pause the thread for few seconds and update progress bar
+                //STEP 5 : Check if any value exceeds threshold
+                trackParameters();
+
+                //STEP 6 : Pause the thread for few seconds and update progress bar
                 pauseThreadUpdateProgress();
 
             }
@@ -97,5 +105,48 @@ public class FetchParameters extends Thread {
             Thread.sleep(1000);
         }
 
+    }
+
+    public void trackParameters(){
+        if(Static.parameters != null && Static.threshold != null){
+
+            if(Static.parameters.getTemperature() >= Static.threshold.getTemperature()){
+                changeCardColor(0,R.color.cardinal_red);
+            }
+            else{
+                changeCardColor(0,R.color.card_background);
+            }
+
+            if(Static.parameters.getPressure() >= Static.threshold.getPressure()){
+                changeCardColor(1,R.color.cardinal_red);
+            }
+            else{
+                changeCardColor(1,R.color.card_background);
+            }
+
+            if(Static.parameters.getHumidity() >= Static.threshold.getHumidity()){
+                changeCardColor(2,R.color.cardinal_red);
+            }
+            else{
+                changeCardColor(2,R.color.card_background);
+            }
+
+            if(Static.parameters.getAir_quality() <= Static.threshold.getAir_quality()){
+                changeCardColor(3,R.color.cardinal_red);
+            }
+            else{
+                changeCardColor(3,R.color.card_background);
+            }
+        }
+    }
+
+    public void changeCardColor(int index,int color){
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                cards[index].setCardBackgroundColor(context.getResources().getColor(color,context.getTheme()));
+                cards[index].setRadius(30);
+            }
+        });
     }
 }

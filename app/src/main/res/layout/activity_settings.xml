@@ -58,7 +58,7 @@
             android:textSize="15dp"
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             />
 
         <!-- Pressure -->
@@ -94,7 +94,7 @@
             android:textSize="15dp"
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             />
 
         <!-- Humidity -->
@@ -130,7 +130,7 @@
             android:textSize="15dp"
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             />
 
         <View
@@ -179,7 +179,7 @@
             android:textSize="15dp"
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             />
 
         <!-- Refresh Timer -->

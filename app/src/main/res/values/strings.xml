@@ -29,4 +29,12 @@
     <string name="toast_phone_number_length_max">Phone Number must contain maximum 10 digits</string>
     <string name="toast_phone_number_length_min">Phone Number must contain minimum 10 digits</string>
 
+
+
+    <!--Activity Settings-->
+    <string name="temperature_threshold">25</string>
+    <string name="pressure_threshold">6000</string>
+    <string name="humidity_threshold">60</string>
+    <string name="air_quality_threshold">50</string>
+    <string name="refresh_timer_threshold">10</string>
 </resources>

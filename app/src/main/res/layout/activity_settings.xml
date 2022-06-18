@@ -26,11 +26,28 @@
             />
 
         <!-- Temperature -->
+        <TextView
+            android:layout_toStartOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_text_view_temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Temperature ( C )"
+            android:textAlignment="center"
+            android:layout_above="@+id/id_settings_edit_text_pressure"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            />
         <EditText
+            android:layout_toEndOf="@id/id_settings_center_horizontal"
             android:id="@+id/id_settings_edit_text_temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Temperature"
+            android:hint="@string/temperature_threshold"
             android:textAlignment="center"
             android:layout_above="@id/id_settings_edit_text_pressure"
             android:background="@drawable/background_edit_text"
@@ -45,11 +62,28 @@
             />
 
         <!-- Pressure -->
+        <TextView
+            android:textColor="@color/white"
+            android:layout_toStartOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_text_view_pressure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pressure (Kg/cm^2)"
+            android:textAlignment="center"
+            android:layout_above="@id/id_settings_edit_text_humidity"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:padding="10dp"
+            />
         <EditText
+            android:layout_toEndOf="@id/id_settings_center_horizontal"
             android:id="@+id/id_settings_edit_text_pressure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Pressure"
+            android:hint="@string/pressure_threshold"
             android:textAlignment="center"
             android:layout_above="@id/id_settings_edit_text_humidity"
             android:background="@drawable/background_edit_text"
@@ -64,13 +98,30 @@
             />
 
         <!-- Humidity -->
+        <TextView
+            android:textColor="@color/white"
+            android:layout_toStartOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_text_view_humidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Humidity (%rh)"
+            android:textAlignment="center"
+            android:layout_above="@id/id_settings_center_vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:padding="10dp"
+            />
         <EditText
+            android:layout_toEndOf="@id/id_settings_center_horizontal"
             android:id="@+id/id_settings_edit_text_humidity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Humidity"
+            android:hint="@string/humidity_threshold"
             android:textAlignment="center"
-            android:layout_above="@id/center"
+            android:layout_above="@id/id_settings_center_vertical"
             android:background="@drawable/background_edit_text"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
@@ -83,20 +134,43 @@
             />
 
         <View
-            android:id="@+id/center"
+            android:id="@+id/id_settings_center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_centerInParent="true"
             />
+        <View
+            android:id="@+id/id_settings_center_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            />
 
         <!-- Air Quality -->
+        <TextView
+            android:textColor="@color/white"
+            android:layout_toStartOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_text_view_airquality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Air Quality ( % )"
+            android:textAlignment="center"
+            android:layout_below="@id/id_settings_center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:padding="10dp"
+            />
         <EditText
+            android:layout_toEndOf="@id/id_settings_center_horizontal"
             android:id="@+id/id_settings_edit_text_airquality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Air Quality"
+            android:hint="@string/air_quality_threshold"
             android:textAlignment="center"
-            android:layout_below="@id/id_settings_edit_text_humidity"
+            android:layout_below="@id/id_settings_center_vertical"
             android:background="@drawable/background_edit_text"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
@@ -109,11 +183,28 @@
             />
 
         <!-- Refresh Timer -->
+        <TextView
+            android:textColor="@color/white"
+            android:layout_toStartOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_text_view_refreshtimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Refresh Timer ( sec )"
+            android:textAlignment="center"
+            android:layout_below="@id/id_settings_edit_text_airquality"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:padding="10dp"
+            />
         <EditText
+            android:layout_toEndOf="@id/id_settings_center_horizontal"
             android:id="@+id/id_settings_edit_text_refreshtimer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Refresh Timer"
+            android:hint="@string/refresh_timer_threshold"
             android:textAlignment="center"
             android:layout_below="@id/id_settings_edit_text_airquality"
             android:background="@drawable/background_edit_text"

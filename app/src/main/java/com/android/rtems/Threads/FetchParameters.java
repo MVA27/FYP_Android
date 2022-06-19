@@ -2,6 +2,7 @@ package com.android.rtems.Threads;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.cardview.widget.CardView;
@@ -80,7 +81,7 @@ public class FetchParameters extends Thread {
                 pauseThreadUpdateProgress();
 
             }
-            catch (IOException | InterruptedException e) {
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -88,13 +89,13 @@ public class FetchParameters extends Thread {
 
     //TODO : Test Refresh Timer Clock for various test cases
     //Refresh Timer Clock
-    public void pauseThreadUpdateProgress() throws InterruptedException{
+    public void pauseThreadUpdateProgress(){
 
         for(int sec = 1; sec <= Static.refreshTime ; sec++){
 
-            int progress = (int)((sec / Static.refreshTime) * 100);
+            int progress = (int)((sec / Static.refreshTime) * 100); //STEP 1 : Calculate Progress
 
-            handler.post(new Runnable() {
+            handler.post(new Runnable() { //STEP 2 : Display Progress
                 @Override
                 public void run() {
                     progressBar.setProgress(progress);
@@ -102,7 +103,7 @@ public class FetchParameters extends Thread {
                 }
             });
 
-            Thread.sleep(1000);
+            SystemClock.sleep(1000); //STEP 3 : Pause Thread for 1 second
         }
 
     }

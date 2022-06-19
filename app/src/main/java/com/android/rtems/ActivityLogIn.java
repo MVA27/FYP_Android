@@ -81,6 +81,7 @@ public class ActivityLogIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 validate();
+                finish();
             }
         });
 

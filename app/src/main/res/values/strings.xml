@@ -30,7 +30,6 @@
     <string name="toast_phone_number_length_min">Phone Number must contain minimum 10 digits</string>
 
 
-
     <!--Activity Settings-->
     <string name="temperature_threshold">25</string>
     <string name="pressure_threshold">6000</string>

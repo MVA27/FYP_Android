@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityHistoricalData"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TableLayout
+            android:id="@+id/id_historical_table_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            >
+
+            <TableRow android:background="@color/lightBlue">
+
+                <TextView android:text="Day" />
+                <TextView android:text="Month" />
+                <TextView android:text="Year" />
+
+                <TextView android:text="Hrs" />
+                <TextView android:text="Min" />
+                <TextView android:text="Sec" />
+
+                <TextView android:text="Temp" />
+                <TextView android:text="Pres" />
+                <TextView android:text="Hum" />
+                <TextView android:text="AQ" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

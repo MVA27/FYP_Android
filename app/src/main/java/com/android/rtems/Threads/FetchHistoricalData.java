@@ -1,21 +1,20 @@
 package com.android.rtems.Threads;
 
-import android.util.Log;
-
-import com.android.rtems.storage.Parameters;
+import android.content.Context;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import com.android.rtems.storage.Static;
 import com.android.rtems.storage.UniversalData;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
+import java.util.function.BiConsumer;
 
 import static com.android.rtems.Constants.Server.domain;
 import static com.android.rtems.Constants.Server.folder;
@@ -23,29 +22,90 @@ import static com.android.rtems.Constants.Server.protocol;
 import static com.android.rtems.Constants.Server.subDomain;
 import static com.android.rtems.Constants.Server.topLevelDomain;
 
+/**
+ * This thread fetches historical data
+ * At the same time constructs and displays table data
+ * */
 public class FetchHistoricalData extends Thread {
+
+    Context context;
+    Handler handler;
+    TableLayout tableLayout;
+
+    public FetchHistoricalData(Context context,Handler handler,TableLayout tableLayout){
+        this.context = context;
+        this.handler = handler;
+        this.tableLayout = tableLayout;
+    }
+
     @Override
     public void run() {
         String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/fetch_historical_data.php";
 
-        try {
-            URL url = new URL(link);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        //If Data is not already loaded, then connect to server and load
+        if(Static.universalData == null) {
+            try {
+                URL url = new URL(link);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line = "";
-            StringBuilder JSONArray = new StringBuilder();
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder JSONArray = new StringBuilder();
 
-            while((line = br.readLine()) != null){
-                JSONArray.append(line);
+                while ((line = br.readLine()) != null) {
+                    JSONArray.append(line);
+                }
+
+                Gson gson = new Gson();
+                Static.universalData = gson.fromJson(JSONArray.toString(), UniversalData[].class);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            Gson gson = new GsonBuilder().setLenient().create();
-            UniversalData[] universalData = gson.fromJson(JSONArray.toString(),UniversalData[].class);
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
+        initializeTable();
+    }
+
+    public void initializeTable() {
+
+        //Method Specific Utility : Created to add columns to the Table row
+        BiConsumer<TableRow,String> initColumn = (row, content)->{
+            TextView textView = new TextView(context);
+            textView.setText(content);
+            row.addView(textView);
+        };
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                while(Static.universalData == null) SystemClock.sleep(1000);
+
+                for(UniversalData value : Static.universalData){
+
+                    TableRow row = new TableRow(context);
+
+                    //Date
+                    initColumn.accept(row,String.valueOf(value.getDay()));
+                    initColumn.accept(row,String.valueOf(value.getMonth()));
+                    initColumn.accept(row,String.valueOf(value.getYear()));
+
+                    //Time
+                    initColumn.accept(row,String.valueOf(value.getHours()));
+                    initColumn.accept(row,String.valueOf(value.getMinutes()));
+                    initColumn.accept(row,String.valueOf(value.getSeconds()));
+
+                    //Parameters
+                    initColumn.accept(row,String.valueOf(value.getTemperature()));
+                    initColumn.accept(row,String.valueOf(value.getPressure()));
+                    initColumn.accept(row,String.valueOf(value.getHumidity()));
+                    initColumn.accept(row,String.valueOf(value.getAir_quality()));
+
+                    tableLayout.addView(row);
+                }
+            }
+        });
     }
 }

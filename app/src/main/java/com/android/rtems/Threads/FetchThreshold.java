@@ -1,6 +1,7 @@
 package com.android.rtems.Threads;
 
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -39,17 +40,11 @@ public class FetchThreshold extends Thread {
                 Gson gson = new Gson();
                 Static.threshold = gson.fromJson(JSON,Parameters.class);
 
-                pauseThread();
+                for(int sec = 1; sec <= Static.refreshTime ; sec++) SystemClock.sleep(1000);
 
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public void pauseThread() throws InterruptedException{
-        for(int sec = 1; sec <= Static.refreshTime ; sec++){
-            Thread.sleep(1000);
         }
     }
 }

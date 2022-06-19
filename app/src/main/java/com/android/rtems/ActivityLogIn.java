@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.rtems.Threads.FetchHistoricalData;
 import com.android.rtems.Threads.FetchThreshold;
 import com.android.rtems.Threads.VerifyUser;
 import com.android.rtems.utils.Validation;
@@ -80,9 +81,7 @@ public class ActivityLogIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 validate();
-                finish();
             }
-
         });
 
         imageViewRegisterUser.setOnClickListener(new View.OnClickListener() {

@@ -186,7 +186,7 @@
         <TextView
             android:textColor="@color/white"
             android:layout_toStartOf="@id/id_settings_center_horizontal"
-            android:id="@+id/id_settings_text_view_refreshtimer"
+            android:id="@+id/id_settings_text_view_refresh_timer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Refresh Timer ( sec )"
@@ -201,7 +201,7 @@
             />
         <EditText
             android:layout_toEndOf="@id/id_settings_center_horizontal"
-            android:id="@+id/id_settings_edit_text_refreshtimer"
+            android:id="@+id/id_settings_edit_text_refresh_timer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/refresh_timer_threshold"
@@ -216,6 +216,75 @@
             android:textColorHint="#FFFFFF"
             android:padding="10dp"
             android:inputType="number"
+            />
+
+        <!-- Sleep Flag -->
+        <TextView
+            android:textColor="@color/white"
+            android:layout_toStartOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_text_view_sleep_flag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sleep flag ( sec )"
+            android:textAlignment="center"
+            android:layout_below="@id/id_settings_text_view_refresh_timer"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:padding="10dp"
+            />
+        <EditText
+            android:layout_toEndOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_edit_text_sleep_flag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/sleep_flag"
+            android:textAlignment="center"
+            android:layout_below="@id/id_settings_edit_text_refresh_timer"
+            android:background="@drawable/background_edit_text"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:textColorHint="#FFFFFF"
+            android:padding="10dp"
+            android:inputType="number"
+            />
+
+        <!-- Terminate Flag -->
+        <TextView
+            android:textColor="@color/white"
+            android:layout_toStartOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_text_view_terminate_flag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Terminate flag"
+            android:textAlignment="center"
+            android:layout_below="@id/id_settings_text_view_sleep_flag"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:padding="10dp"
+            />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_toEndOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_edit_text_terminate_flag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textOn="1"
+            android:textOff="0"
+            android:layout_below="@id/id_settings_edit_text_sleep_flag"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="#FFFFFF"
+            android:padding="10dp"
             />
 
         <ProgressBar

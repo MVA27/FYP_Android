@@ -51,8 +51,8 @@ public class ActivityDisplay extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(ActivityDisplay.this,ActivitySettings.class));
-                startActivity(new Intent(ActivityDisplay.this,ActivityHistoricalData.class));
+                startActivity(new Intent(ActivityDisplay.this,ActivitySettings.class));
+                //startActivity(new Intent(ActivityDisplay.this,ActivityHistoricalData.class));
                 finish();
             }
         });

@@ -36,4 +36,9 @@
     <string name="humidity_threshold">60</string>
     <string name="air_quality_threshold">50</string>
     <string name="refresh_timer_threshold">10</string>
+    <string name="sleep_flag">1</string>
+
+    <!-- Flags-->
+    <string name="sleep">sleep</string>
+    <string name="terminate">terminate</string>
 </resources>

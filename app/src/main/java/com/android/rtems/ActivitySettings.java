@@ -1,21 +1,43 @@
 package com.android.rtems;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.rtems.Threads.FetchFlags;
+import com.android.rtems.Threads.SetFlags;
 import com.android.rtems.Threads.SetThreshold;
+import com.android.rtems.storage.Parameters;
 import com.android.rtems.storage.Static;
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import static com.android.rtems.Constants.Server.domain;
+import static com.android.rtems.Constants.Server.folder;
+import static com.android.rtems.Constants.Server.protocol;
+import static com.android.rtems.Constants.Server.subDomain;
+import static com.android.rtems.Constants.Server.topLevelDomain;
 
 public class ActivitySettings extends AppCompatActivity {
 
     Handler handler = new Handler();
-    EditText temperature,pressure,humidity,airQuality,refreshTimer;
+    EditText temperature,pressure,humidity,airQuality,refreshTimer,sleepFlag;
+    SwitchCompat terminateFlag;
     ProgressBar progressBar;
     Button buttonSet;
 
@@ -24,26 +46,28 @@ public class ActivitySettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        //Threshold
         temperature = findViewById(R.id.id_settings_edit_text_temperature);
         pressure = findViewById(R.id.id_settings_edit_text_pressure);
         humidity = findViewById(R.id.id_settings_edit_text_humidity);
         airQuality = findViewById(R.id.id_settings_edit_text_airquality);
-        refreshTimer = findViewById(R.id.id_settings_edit_text_refreshtimer);
+        refreshTimer = findViewById(R.id.id_settings_edit_text_refresh_timer);
+
+        //Flags
+        sleepFlag = findViewById(R.id.id_settings_edit_text_sleep_flag);
+        terminateFlag = findViewById(R.id.id_settings_edit_text_terminate_flag);
+
+        //Others
         progressBar = findViewById(R.id.id_settings_progress_bar);
         buttonSet = findViewById(R.id.id_settings_button_set);
 
+        //TODO : if possible move this in the background thread i.e FetchThreshold.java
         //Fetch current threshold values and provide it as hint
         handler.post(new Runnable() {
             @Override
             public void run() {
 
-                while(Static.threshold == null){
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                while(Static.threshold == null) SystemClock.sleep(1000);
 
                 temperature.setHint(String.valueOf(Static.threshold.getTemperature()));
                 pressure.setHint(String.valueOf(Static.threshold.getPressure()));
@@ -53,6 +77,10 @@ public class ActivitySettings extends AppCompatActivity {
             }
         });
 
+        //Fetch current Flags values and provide it as hint
+        new FetchFlags(handler,sleepFlag,terminateFlag).start();
+
+        //Set Button
         buttonSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +90,8 @@ public class ActivitySettings extends AppCompatActivity {
                 String airQuality = ActivitySettings.this.airQuality.getText().toString();
                 String refreshTimer = ActivitySettings.this.refreshTimer.getText().toString();
 
+                String sleepFlag = ActivitySettings.this.sleepFlag.getText().toString();
+
                 //TODO : Show necessary Toasts
 
                 if(!refreshTimer.isEmpty()) Static.refreshTime = Double.parseDouble(refreshTimer);
@@ -70,6 +100,17 @@ public class ActivitySettings extends AppCompatActivity {
                 if(!temperature.isEmpty() || !pressure.isEmpty() || !humidity.isEmpty() || !airQuality.isEmpty()){
                     new SetThreshold(ActivitySettings.this,new Handler(),progressBar,temperature,pressure,humidity,airQuality).start();
                 }
+
+                if(!sleepFlag.isEmpty()) new SetFlags(ActivitySettings.this,getResources().getString(R.string.sleep),Integer.parseInt(sleepFlag)).start();
+            }
+        });
+
+        //Terminate Toggle Button
+        terminateFlag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if(checked) new SetFlags(ActivitySettings.this,"terminate",1).start();
+                else new SetFlags(ActivitySettings.this,"terminate",0).start();
             }
         });
     }

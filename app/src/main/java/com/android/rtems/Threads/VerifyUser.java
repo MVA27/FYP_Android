@@ -3,6 +3,7 @@ package com.android.rtems.Threads;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -64,7 +65,7 @@ public class VerifyUser extends Thread{
             while(status != 200 && status != 400){
 
                 status = connection.getResponseCode();
-                Thread.sleep(1000);
+                SystemClock.sleep(1000);
                 seconds++;
 
                 if(seconds == 10) break; //connection time-out
@@ -91,7 +92,7 @@ public class VerifyUser extends Thread{
                 });
             }
 
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

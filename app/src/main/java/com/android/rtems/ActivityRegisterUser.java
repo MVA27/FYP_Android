@@ -38,11 +38,7 @@ public class ActivityRegisterUser extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_user);
-
+    private void initialization(){
         firstName = findViewById(R.id.id_register_first_name);
         lastName = findViewById(R.id.id_register_last_name);
         userName = findViewById(R.id.id_register_user_name);
@@ -51,6 +47,14 @@ public class ActivityRegisterUser extends AppCompatActivity {
         phoneNumber = findViewById(R.id.id_register_phone_number);
         progressBar = findViewById(R.id.id_register_progress_bar);
         register = findViewById(R.id.id_register_register_button);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register_user);
+
+        initialization();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

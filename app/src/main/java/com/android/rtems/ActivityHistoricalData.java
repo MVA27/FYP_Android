@@ -16,12 +16,16 @@ public class ActivityHistoricalData extends AppCompatActivity {
 
     TableLayout tableLayout;
 
+    private void initialization(){
+        tableLayout = findViewById(R.id.id_historical_table_layout);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historical_data);
 
-        tableLayout = findViewById(R.id.id_historical_table_layout);
+        initialization();
 
         new FetchHistoricalData(this,new Handler(),tableLayout).start();
     }

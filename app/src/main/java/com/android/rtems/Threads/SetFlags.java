@@ -60,14 +60,12 @@ public class SetFlags extends Thread {
                 if(seconds == 10) break; //connection time-out
             }
 
+            //TODO : Display Toast
             if(status == 200){
-                Log.d("testsf", "run: success");
             }
             else if(status == 400){
-                Log.d("testsf", "run: failed");
             }
             else{
-                Log.d("testsf", "run: unexpected failure");
             }
         }
         catch (IOException e) {

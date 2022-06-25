@@ -6,32 +6,16 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.android.rtems.Threads.FetchFlags;
 import com.android.rtems.Threads.SetFlags;
 import com.android.rtems.Threads.SetThreshold;
-import com.android.rtems.storage.Parameters;
 import com.android.rtems.storage.Static;
-import com.google.gson.Gson;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import static com.android.rtems.Constants.Server.domain;
-import static com.android.rtems.Constants.Server.folder;
-import static com.android.rtems.Constants.Server.protocol;
-import static com.android.rtems.Constants.Server.subDomain;
-import static com.android.rtems.Constants.Server.topLevelDomain;
 
 public class ActivitySettings extends AppCompatActivity {
 
@@ -41,11 +25,7 @@ public class ActivitySettings extends AppCompatActivity {
     ProgressBar progressBar;
     Button buttonSet;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-
+    private void initialization(){
         //Threshold
         temperature = findViewById(R.id.id_settings_edit_text_temperature);
         pressure = findViewById(R.id.id_settings_edit_text_pressure);
@@ -60,6 +40,14 @@ public class ActivitySettings extends AppCompatActivity {
         //Others
         progressBar = findViewById(R.id.id_settings_progress_bar);
         buttonSet = findViewById(R.id.id_settings_button_set);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+
+        initialization();
 
         //TODO : if possible move this in the background thread i.e FetchThreshold.java
         //Fetch current threshold values and provide it as hint

@@ -2,13 +2,10 @@ package com.android.rtems.Threads;
 
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 import android.widget.EditText;
 import com.android.rtems.storage.Flags;
 import androidx.appcompat.widget.SwitchCompat;
-
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

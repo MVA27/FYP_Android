@@ -66,16 +66,20 @@ public class ActivityLogIn extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
+    private void initialization(){
         buttonLogIn = findViewById(R.id.id_login_log_in_button);
         imageViewRegisterUser = findViewById(R.id.id_login_register_user_button);
         userName = findViewById(R.id.id_login_user_name);
         password = findViewById(R.id.id_login_password);
         progressBar = findViewById(R.id.id_login_progress_bar);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        initialization();
 
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override

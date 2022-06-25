@@ -5,16 +5,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_display">
 
-    <!-- Settings Icon -->
+    <!--Options Icon -->
     <ImageView
-        android:id="@+id/id_display_settings_button"
+        android:id="@+id/id_display_options_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:paddingTop="9dp"
         android:paddingEnd="5dp"
-        android:src="@drawable/icon_settings" />
+        android:src="@drawable/icon_option_menu" />
 
     <!-- Title -->
     <TextView

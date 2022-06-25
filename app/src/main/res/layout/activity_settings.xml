@@ -255,32 +255,19 @@
             />
 
         <!-- Terminate Flag -->
-        <TextView
-            android:textColor="@color/white"
-            android:layout_toStartOf="@id/id_settings_center_horizontal"
-            android:id="@+id/id_settings_text_view_terminate_flag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Terminate flag"
-            android:textAlignment="center"
-            android:layout_below="@id/id_settings_text_view_sleep_flag"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:autoSizeTextType="uniform"
-            android:textSize="15dp"
-            android:padding="10dp"
-            />
-
         <androidx.appcompat.widget.SwitchCompat
-            android:layout_toEndOf="@id/id_settings_center_horizontal"
+            android:autoSizeTextType="uniform"
+            app:showText="true"
+            android:text="@string/terminate"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"
             android:id="@+id/id_settings_edit_text_terminate_flag"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textOn="1"
             android:textOff="0"
             android:layout_below="@id/id_settings_edit_text_sleep_flag"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:textColor="#FFFFFF"

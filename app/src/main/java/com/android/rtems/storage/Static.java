@@ -14,7 +14,6 @@ public class Static {
      */
     public static Parameters threshold;
 
-
     //TODO : Load default value as previously saved value from a file, if there is no previous value then assign 0
     /**
      * Time(in sec) after which new parameter values will be fetched from the server

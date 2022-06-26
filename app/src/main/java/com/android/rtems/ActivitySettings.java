@@ -3,6 +3,7 @@ package com.android.rtems;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.android.rtems.Constants.SharedPreference;
 import com.android.rtems.Threads.FetchFlags;
 import com.android.rtems.Threads.SetFlags;
 import com.android.rtems.Threads.SetThreshold;
@@ -82,7 +84,10 @@ public class ActivitySettings extends AppCompatActivity {
 
                 //TODO : Show necessary Toasts
 
-                if(!refreshTimer.isEmpty()) Static.refreshTime = Double.parseDouble(refreshTimer);
+                if(!refreshTimer.isEmpty()) {
+                    Static.refreshTime = Double.parseDouble(refreshTimer);
+                    updateRefreshTimer();
+                }
 
                 //Even if one input is not empty start thread
                 if(!temperature.isEmpty() || !pressure.isEmpty() || !humidity.isEmpty() || !airQuality.isEmpty()){
@@ -101,5 +106,13 @@ public class ActivitySettings extends AppCompatActivity {
                 else new SetFlags(ActivitySettings.this,"terminate",0).start();
             }
         });
+    }
+
+    //Saves the value of Static.refreshTimer in a SP
+    private void updateRefreshTimer() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SharedPreference.NAME_REFRESH_TIMER,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat(SharedPreference.KEY_REFRESH_TIMER,(float) Static.refreshTime);
+        editor.apply();
     }
 }

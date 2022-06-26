@@ -1,6 +1,7 @@
 package com.android.rtems;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -13,9 +14,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.rtems.Constants.SharedPreference;
 import com.android.rtems.Threads.FetchHistoricalData;
 import com.android.rtems.Threads.FetchThreshold;
 import com.android.rtems.Threads.VerifyUser;
+import com.android.rtems.storage.Static;
 import com.android.rtems.utils.Validation;
 
 import java.util.regex.Matcher;
@@ -29,6 +32,28 @@ public class ActivityLogIn extends AppCompatActivity {
     ProgressBar progressBar;
     Handler handler = new Handler();
     Validation validation;
+
+    private void initialization(){
+        buttonLogIn = findViewById(R.id.id_login_log_in_button);
+        imageViewRegisterUser = findViewById(R.id.id_login_register_user_button);
+        userName = findViewById(R.id.id_login_user_name);
+        password = findViewById(R.id.id_login_password);
+        progressBar = findViewById(R.id.id_login_progress_bar);
+    }
+
+    /**
+     * This method loads value for Static.refreshTimer from the SP file if it is already saved
+     * else default value 10 has been initialized in Static class
+     * This SP file will only be created in ActivitySettings when user changes the value
+     */
+    private void loadRefreshTimer(){
+        //If the corresponding SP does not exist, null will be returned
+        SharedPreferences sharedPreferences = getSharedPreferences(SharedPreference.NAME_REFRESH_TIMER,MODE_PRIVATE);
+
+        if(sharedPreferences != null) {
+            Static.refreshTime = sharedPreferences.getFloat(SharedPreference.KEY_REFRESH_TIMER,10F);
+        }
+    }
 
     private void validate(){
         //Inheritance performed to customize a method
@@ -66,20 +91,14 @@ public class ActivityLogIn extends AppCompatActivity {
         }
     }
 
-    private void initialization(){
-        buttonLogIn = findViewById(R.id.id_login_log_in_button);
-        imageViewRegisterUser = findViewById(R.id.id_login_register_user_button);
-        userName = findViewById(R.id.id_login_user_name);
-        password = findViewById(R.id.id_login_password);
-        progressBar = findViewById(R.id.id_login_progress_bar);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         initialization();
+
+        loadRefreshTimer();
 
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override

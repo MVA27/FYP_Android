@@ -19,20 +19,33 @@
             android:stretchColumns="*"
             >
 
-            <TableRow android:background="@color/lightBlue">
+            <TableRow
+                android:background="@color/colorPrimaryDark">
 
-                <TextView android:text="Day" />
-                <TextView android:text="Month" />
-                <TextView android:text="Year" />
+                <TextView
+                    android:textAlignment="center"
+                    android:text="Date" />
 
-                <TextView android:text="Hrs" />
-                <TextView android:text="Min" />
-                <TextView android:text="Sec" />
+                <TextView
+                    android:textAlignment="center"
+                    android:text="Time" />
 
-                <TextView android:text="Temp" />
-                <TextView android:text="Pres" />
-                <TextView android:text="Hum" />
-                <TextView android:text="AQ" />
+                <TextView
+                    android:textAlignment="center"
+                    android:text="Temp" />
+
+                <TextView
+                    android:textAlignment="center"
+                    android:text="Pres" />
+
+
+                <TextView
+                    android:textAlignment="center"
+                    android:text="Hum" />
+
+                <TextView
+                    android:textAlignment="center"
+                    android:text="AQ" />
 
             </TableRow>
 

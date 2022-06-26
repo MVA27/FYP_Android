@@ -3,9 +3,12 @@ package com.android.rtems.Threads;
 import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.android.rtems.R;
 import com.android.rtems.storage.Static;
 import com.android.rtems.storage.UniversalData;
 import com.google.gson.Gson;
@@ -70,9 +73,10 @@ public class FetchHistoricalData extends Thread {
 
     public void initializeTable() {
 
-        //Method Specific Utility : Created to add columns to the Table row
+        //Method Specific Utility : Created to add columns to each row of Table
         BiConsumer<TableRow,String> initColumn = (row, content)->{
             TextView textView = new TextView(context);
+            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             textView.setText(content);
             row.addView(textView);
         };
@@ -88,14 +92,10 @@ public class FetchHistoricalData extends Thread {
                     TableRow row = new TableRow(context);
 
                     //Date
-                    initColumn.accept(row,String.valueOf(value.getDay()));
-                    initColumn.accept(row,String.valueOf(value.getMonth()));
-                    initColumn.accept(row,String.valueOf(value.getYear()));
+                    initColumn.accept(row,value.getDay()+"-"+value.getMonth()+"-"+value.getYear());
 
                     //Time
-                    initColumn.accept(row,String.valueOf(value.getHours()));
-                    initColumn.accept(row,String.valueOf(value.getMinutes()));
-                    initColumn.accept(row,String.valueOf(value.getSeconds()));
+                    initColumn.accept(row,value.getHours()+":"+value.getMinutes()+":"+value.getSeconds());
 
                     //Parameters
                     initColumn.accept(row,String.valueOf(value.getTemperature()));
@@ -103,6 +103,7 @@ public class FetchHistoricalData extends Thread {
                     initColumn.accept(row,String.valueOf(value.getHumidity()));
                     initColumn.accept(row,String.valueOf(value.getAir_quality()));
 
+                    if(value.getStatus() == 1) row.setBackgroundColor(context.getColor(R.color.red));
                     tableLayout.addView(row);
                 }
             }

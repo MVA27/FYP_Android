@@ -11,8 +11,9 @@ public class UniversalData extends Parameters{
     private int hours;
     private int minutes;
     private int seconds;
+    private int status;
 
-    public UniversalData(float temperature, float pressure, float humidity, float air_quality, int day, int month, int year, int hours, int minutes, int seconds) {
+    public UniversalData(float temperature, float pressure, float humidity, float air_quality, int day, int month, int year, int hours, int minutes, int seconds,int status) {
         super(temperature, pressure, humidity, air_quality);
         this.day = day;
         this.month = month;
@@ -20,6 +21,7 @@ public class UniversalData extends Parameters{
         this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
+        this.status = status;
     }
 
     public int getDay() {
@@ -68,6 +70,14 @@ public class UniversalData extends Parameters{
 
     public void setSeconds(int seconds) {
         this.seconds = seconds;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override

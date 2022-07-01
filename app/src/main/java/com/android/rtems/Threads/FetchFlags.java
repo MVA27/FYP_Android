@@ -26,9 +26,6 @@ public class FetchFlags extends Thread {
     EditText sleepFlag;
     SwitchCompat terminateFlag;
 
-    //When No-Arg constructor is called, This thread will fetch values infinitely
-    public FetchFlags(){}
-
     //When Parametrized constructor is called, This thread will fetch values only once and stop
     public FetchFlags(Handler handler,EditText sleepFlag,SwitchCompat terminateFlag){
         this.handler = handler;
@@ -42,38 +39,34 @@ public class FetchFlags extends Thread {
         String link = protocol+"://"+domain+folder+"/fetch_flags.php";
 
         //First do 1 round of fetching, and continue only if handler is null (that means ActivityDisplay has called it)
-        do {
-            try {
-                //Connect to Server and fetch JSON object
-                URL url = new URL(link);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        try {
+            //Connect to Server and fetch JSON object
+            URL url = new URL(link);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = br.readLine();
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line = br.readLine();
 
-                Gson gson = new Gson();
-                Static.flags = gson.fromJson(line, Flags.class);
+            Gson gson = new Gson();
+            Static.flags = gson.fromJson(line, Flags.class);
 
-                //Change necessary UI components
-                if (handler != null) handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+            //Change necessary UI components
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
 
-                        //If any one value is null, Don't proceed (Check is necessary as it threw an error)
-                        while (sleepFlag == null || terminateFlag == null || Static.flags == null)
-                            SystemClock.sleep(1000);
+                    //If any one value is null, Don't proceed (Check is necessary as it threw an error)
+                    while (sleepFlag == null || terminateFlag == null || Static.flags == null)
+                        SystemClock.sleep(1000);
 
-                        sleepFlag.setHint(Integer.toString(Static.flags.getSleep()));
-                        if (Static.flags.getTerminate() == 1) terminateFlag.setChecked(true);
-                        else terminateFlag.setChecked(false);
-                    }
-                });
-
-                for (int sec = 1; sec <= Static.refreshTime; sec++) SystemClock.sleep(1000);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } while (handler == null);
+                    sleepFlag.setHint(Integer.toString(Static.flags.getSleep()));
+                    if (Static.flags.getTerminate() == 1) terminateFlag.setChecked(true);
+                    else terminateFlag.setChecked(false);
+                }
+            });
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -33,6 +33,7 @@ public class FetchThreshold extends Thread {
                 Static.threshold = gson.fromJson(JSON,Parameters.class);
 
                 for(int sec = 1; sec <= Static.refreshTime ; sec++) SystemClock.sleep(1000);
+
             } catch (IOException e) {
                     e.printStackTrace();
             }

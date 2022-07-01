@@ -7,9 +7,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Progress Bar Theme -->
+    <style name="ActivityLogin" parent="AppTheme">
+        <item name="android:statusBarColor">@color/blue1</item>
+    </style>
+    <style name="ActivityDisplay" parent="AppTheme">
+        <item name="android:statusBarColor">@color/blue5</item>
+    </style>
+    <style name="ActivitySettings" parent="AppTheme">
+        <item name="android:statusBarColor">@color/blue3</item>
+    </style>
+
+
+
+    <!-- Progress Bar Theme of Display Activity-->
     <style name="progressBar">
         <item name="android:progressDrawable">@drawable/background_progress_bar</item>
     </style>
+
 
 </resources>

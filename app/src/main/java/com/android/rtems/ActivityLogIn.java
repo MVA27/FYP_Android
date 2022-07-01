@@ -94,6 +94,7 @@ public class ActivityLogIn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.ActivityLogin);
         setContentView(R.layout.activity_login);
 
         initialization();
@@ -103,8 +104,8 @@ public class ActivityLogIn extends AppCompatActivity {
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validate();
-                finish();
+                //validate();
+                startActivity(new Intent(ActivityLogIn.this, ActivityDisplay.class));
             }
         });
 

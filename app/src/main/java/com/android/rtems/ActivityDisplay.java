@@ -6,6 +6,8 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,14 +49,14 @@ public class ActivityDisplay extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.ActivityDisplay);
         setContentView(R.layout.activity_display);
 
         initialization();
 
-        //Fetch Parameters, Thresholds and Flags
-        new FetchFlags().start(); //Starts Infinite fetching of flags
-        new FetchThreshold().start();
-        new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality,cards).start();
+        //Fetch Parameters and Thresholds infinitely
+        //new FetchThreshold().start();
+        //new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality,cards).start();
 
         //On clicking options button inflate popup button
         optionsButton.setOnClickListener(new View.OnClickListener() {

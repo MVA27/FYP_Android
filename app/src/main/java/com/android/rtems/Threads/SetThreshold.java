@@ -2,21 +2,16 @@ package com.android.rtems.Threads;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import static com.android.rtems.Constants.Server.domain;
 import static com.android.rtems.Constants.Server.folder;
 import static com.android.rtems.Constants.Server.protocol;
-import static com.android.rtems.Constants.Server.subDomain;
-import static com.android.rtems.Constants.Server.topLevelDomain;
 
 public class SetThreshold extends Thread {
 
@@ -45,7 +40,7 @@ public class SetThreshold extends Thread {
         });
 
         String parameterList = getParameterList();
-        String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/set_threshold.php";
+        String link = protocol+"://"+domain+folder+"/set_threshold.php";
 
         try {
             URL url = new URL(link);

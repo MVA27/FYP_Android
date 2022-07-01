@@ -6,6 +6,7 @@ public class Parameters {
     private float humidity;
     private float air_quality;
 
+    public Parameters(){}
     public Parameters(float temperature, float pressure, float humidity, float air_quality) {
         this.temperature = temperature;
         this.pressure = pressure;

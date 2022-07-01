@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.rtems.Threads.FetchFlags;
 import com.android.rtems.Threads.FetchParameters;
 import com.android.rtems.Threads.FetchThreshold;
 
@@ -50,9 +51,10 @@ public class ActivityDisplay extends AppCompatActivity {
 
         initialization();
 
-        //Fetch Parameters and Thresholds
-        new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality,cards).start();
+        //Fetch Parameters, Thresholds and Flags
+        new FetchFlags().start(); //Starts Infinite fetching of flags
         new FetchThreshold().start();
+        new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality,cards).start();
 
         //On clicking options button inflate popup button
         optionsButton.setOnClickListener(new View.OnClickListener() {

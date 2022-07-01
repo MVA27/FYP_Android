@@ -3,6 +3,7 @@ package com.android.rtems.Threads;
 import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +22,6 @@ import java.net.URL;
 import static com.android.rtems.Constants.Server.domain;
 import static com.android.rtems.Constants.Server.folder;
 import static com.android.rtems.Constants.Server.protocol;
-import static com.android.rtems.Constants.Server.subDomain;
-import static com.android.rtems.Constants.Server.topLevelDomain;
 
 public class FetchParameters extends Thread {
 
@@ -49,7 +48,8 @@ public class FetchParameters extends Thread {
 
     @Override
     public void run() {
-        String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/fetch_parameters.php";
+
+        String link = protocol+"://"+domain+folder+"/fetch_parameters.php";
 
         while(true) {
             try {
@@ -65,7 +65,7 @@ public class FetchParameters extends Thread {
                 Gson gson = new Gson();
                 Static.parameters = gson.fromJson(JSON, Parameters.class);
 
-                //STEP 4 : Display the parameters on the screen
+                //STEP 4 : Display the parameters on the screen (only if the Raspberry pi is not terminated)
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -73,43 +73,20 @@ public class FetchParameters extends Thread {
                         pressure.setText(String.valueOf(Static.parameters.getPressure()));
                         humidity.setText(String.valueOf(Static.parameters.getHumidity()));
                         airQuality.setText(String.valueOf(Static.parameters.getAir_quality()));
+
+                        //STEP 5 : Check if any value exceeds threshold
+                        trackParameters();
                     }
                 });
-
-                //STEP 5 : Check if any value exceeds threshold
-                trackParameters();
 
                 //STEP 6 : Pause the thread for few seconds and update progress bar
                 pauseThreadUpdateProgress();
 
-            }
-            catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException e) {
+                    e.printStackTrace();
             }
         }
     }
-
-    //TODO : Test Refresh Timer Clock for various test cases
-    //Refresh Timer Clock
-    public void pauseThreadUpdateProgress(){
-
-        for(int sec = 1; sec <= Static.refreshTime ; sec++){
-
-            int progress = (int)((sec / Static.refreshTime) * 100); //STEP 1 : Calculate Progress
-
-            handler.post(new Runnable() { //STEP 2 : Display Progress
-                @Override
-                public void run() {
-                    progressBar.setProgress(progress);
-                    percentage.setText(progress+"%");
-                }
-            });
-
-            SystemClock.sleep(1000); //STEP 3 : Pause Thread for 1 second
-        }
-
-    }
-
     public void trackParameters(){
         if(Static.parameters != null && Static.threshold != null){
 
@@ -134,7 +111,18 @@ public class FetchParameters extends Thread {
                 changeCardColor(2,R.color.card_background);
             }
 
-            if(Static.parameters.getAir_quality() <= Static.threshold.getAir_quality()){
+
+            /**
+             * If Raspberry pi is terminated its value in database is set as -1 because if it was 0
+             * 0 <= 60 (Threshold) would make the card red
+             * Therefore we want some random number to identify this situation
+             * Thence -1
+             */
+            if(Static.parameters.getAir_quality() == -1) { //Raspberry Pi is terminated
+                changeCardColor(3,R.color.card_background); // Don't make card red
+                airQuality.setText("0.0"); // Don't display -ve value
+            }
+            else if(Static.parameters.getAir_quality() <= Static.threshold.getAir_quality()){
                 changeCardColor(3,R.color.cardinal_red);
             }
             else{
@@ -152,4 +140,26 @@ public class FetchParameters extends Thread {
             }
         });
     }
+
+    //TODO : Test Refresh Timer Clock for various test cases
+    //Refresh Timer Clock
+    public void pauseThreadUpdateProgress(){
+
+        for(int sec = 1; sec <= Static.refreshTime ; sec++){
+
+            int progress = (int)((sec / Static.refreshTime) * 100); //STEP 1 : Calculate Progress
+
+            handler.post(new Runnable() { //STEP 2 : Display Progress
+                @Override
+                public void run() {
+                    progressBar.setProgress(progress);
+                    percentage.setText(progress+"%");
+                }
+            });
+
+            SystemClock.sleep(1000); //STEP 3 : Pause Thread for 1 second
+        }
+
+    }
+
 }

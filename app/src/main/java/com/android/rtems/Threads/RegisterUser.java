@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-
-import static com.android.rtems.Constants.Server.*;
+import static com.android.rtems.Constants.Server.domain;
+import static com.android.rtems.Constants.Server.folder;
+import static com.android.rtems.Constants.Server.protocol;
 
 public class RegisterUser extends Thread {
 
@@ -43,7 +43,7 @@ public class RegisterUser extends Thread {
         });
 
         String parameter = "firstName="+firstName+"&lastName="+lastName+"&userName="+userName+"&userPassword="+password+"&age="+age+"&phoneNumber="+phoneNumber;
-        String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/register_user.php";
+        String link = protocol+"://"+domain+folder+"/register_user.php";
 
         try {
             URL url = new URL(link);

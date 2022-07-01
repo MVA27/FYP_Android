@@ -2,7 +2,6 @@ package com.android.rtems.Threads;
 
 import android.content.Context;
 import android.os.SystemClock;
-import android.util.Log;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -10,8 +9,6 @@ import java.net.URL;
 import static com.android.rtems.Constants.Server.domain;
 import static com.android.rtems.Constants.Server.folder;
 import static com.android.rtems.Constants.Server.protocol;
-import static com.android.rtems.Constants.Server.subDomain;
-import static com.android.rtems.Constants.Server.topLevelDomain;
 
 public class SetFlags extends Thread {
 
@@ -33,7 +30,7 @@ public class SetFlags extends Thread {
 
     @Override
     public void run() {
-        String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/set_flags.php";
+        String link = protocol+"://"+domain+folder+"/set_flags.php";
         try {
             URL url = new URL(link);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

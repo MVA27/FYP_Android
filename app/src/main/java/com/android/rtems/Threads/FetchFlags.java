@@ -5,6 +5,8 @@ import android.os.SystemClock;
 import android.widget.EditText;
 import com.android.rtems.storage.Flags;
 import androidx.appcompat.widget.SwitchCompat;
+
+import com.android.rtems.storage.Static;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,15 +17,19 @@ import java.net.URL;
 import static com.android.rtems.Constants.Server.domain;
 import static com.android.rtems.Constants.Server.folder;
 import static com.android.rtems.Constants.Server.protocol;
-import static com.android.rtems.Constants.Server.subDomain;
-import static com.android.rtems.Constants.Server.topLevelDomain;
 
+//If handler != null that means Activity settings has called it
+//Else ActivityDisplay has called it to perform infinite fetching
 public class FetchFlags extends Thread {
 
     Handler handler;
     EditText sleepFlag;
     SwitchCompat terminateFlag;
 
+    //When No-Arg constructor is called, This thread will fetch values infinitely
+    public FetchFlags(){}
+
+    //When Parametrized constructor is called, This thread will fetch values only once and stop
     public FetchFlags(Handler handler,EditText sleepFlag,SwitchCompat terminateFlag){
         this.handler = handler;
         this.sleepFlag = sleepFlag;
@@ -33,37 +39,41 @@ public class FetchFlags extends Thread {
     @Override
     public void run() {
 
-        String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/fetch_flags.php";
+        String link = protocol+"://"+domain+folder+"/fetch_flags.php";
 
-        try{
-            //Connect to Server and fetch JSON object
-            URL url = new URL(link);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        //First do 1 round of fetching, and continue only if handler is null (that means ActivityDisplay has called it)
+        do {
+            try {
+                //Connect to Server and fetch JSON object
+                URL url = new URL(link);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line = br.readLine();
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = br.readLine();
 
-            Gson gson = new Gson();
-            Flags flags = gson.fromJson(line,Flags.class);
+                Gson gson = new Gson();
+                Static.flags = gson.fromJson(line, Flags.class);
 
-            //Change necessary UI components
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+                //Change necessary UI components
+                if (handler != null) handler.post(new Runnable() {
+                    @Override
+                    public void run() {
 
-                    //If any one value is null, Don't proceed
-                    while(sleepFlag == null || terminateFlag == null || flags == null) SystemClock.sleep(1000);
+                        //If any one value is null, Don't proceed (Check is necessary as it threw an error)
+                        while (sleepFlag == null || terminateFlag == null || Static.flags == null)
+                            SystemClock.sleep(1000);
 
-                    sleepFlag.setHint(Integer.toString(flags.getSleep()));
-                    if(flags.getTerminate() == 1) terminateFlag.setChecked(true);
-                    else terminateFlag.setChecked(false);
-                }
-            });
+                        sleepFlag.setHint(Integer.toString(Static.flags.getSleep()));
+                        if (Static.flags.getTerminate() == 1) terminateFlag.setChecked(true);
+                        else terminateFlag.setChecked(false);
+                    }
+                });
 
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+                for (int sec = 1; sec <= Static.refreshTime; sec++) SystemClock.sleep(1000);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } while (handler == null);
     }
 }

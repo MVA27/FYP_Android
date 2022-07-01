@@ -4,16 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.text.Editable;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import static com.android.rtems.Constants.Server.*;
+import static com.android.rtems.Constants.Server.protocol;
+import static com.android.rtems.Constants.Server.domain;
+import static com.android.rtems.Constants.Server.folder;
 
 public class VerifyUser extends Thread{
 
@@ -44,7 +44,7 @@ public class VerifyUser extends Thread{
         //STEP 2 : Start Networking Operation
         try{
             String parameters = "userName="+userName+"&userPassword="+password;
-            String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/verify_user.php";
+            String link = protocol+"://"+domain+folder+"/verify_user.php";
 
             URL url = new URL(link);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

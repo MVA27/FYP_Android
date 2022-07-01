@@ -22,8 +22,6 @@ import java.util.function.BiConsumer;
 import static com.android.rtems.Constants.Server.domain;
 import static com.android.rtems.Constants.Server.folder;
 import static com.android.rtems.Constants.Server.protocol;
-import static com.android.rtems.Constants.Server.subDomain;
-import static com.android.rtems.Constants.Server.topLevelDomain;
 
 /**
  * This thread fetches historical data
@@ -43,7 +41,7 @@ public class FetchHistoricalData extends Thread {
 
     @Override
     public void run() {
-        String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/fetch_historical_data.php";
+        String link = protocol+"://"+domain+folder+"/fetch_historical_data.php";
 
         //If Data is not already loaded, then connect to server and load
         if(Static.universalData == null) {

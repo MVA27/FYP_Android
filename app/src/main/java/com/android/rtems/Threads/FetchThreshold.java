@@ -1,11 +1,6 @@
 package com.android.rtems.Threads;
 
-import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import com.android.rtems.storage.Parameters;
 import com.android.rtems.storage.Static;
 import com.google.gson.Gson;
@@ -17,8 +12,6 @@ import java.net.URL;
 import static com.android.rtems.Constants.Server.domain;
 import static com.android.rtems.Constants.Server.folder;
 import static com.android.rtems.Constants.Server.protocol;
-import static com.android.rtems.Constants.Server.subDomain;
-import static com.android.rtems.Constants.Server.topLevelDomain;
 
 public class FetchThreshold extends Thread {
 
@@ -26,8 +19,7 @@ public class FetchThreshold extends Thread {
 
     @Override
     public void run() {
-
-        String link = protocol+"://"+subDomain+"."+domain+"."+topLevelDomain+folder+"/fetch_threshold.php";
+        String link = protocol+"://"+domain+folder+"/fetch_threshold.php";
 
         while(true) {
             try {
@@ -41,9 +33,8 @@ public class FetchThreshold extends Thread {
                 Static.threshold = gson.fromJson(JSON,Parameters.class);
 
                 for(int sec = 1; sec <= Static.refreshTime ; sec++) SystemClock.sleep(1000);
-
             } catch (IOException e) {
-                e.printStackTrace();
+                    e.printStackTrace();
             }
         }
     }

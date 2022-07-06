@@ -162,6 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="Register"
+            android:textColor="@color/buttonTextColor"
             android:background="@drawable/background_button"
             android:layout_alignParentBottom="true"
             />

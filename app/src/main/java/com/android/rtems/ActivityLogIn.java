@@ -1,5 +1,6 @@
 package com.android.rtems;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.android.rtems.Constants.SharedPreference;
 import com.android.rtems.Threads.FetchHistoricalData;
@@ -98,14 +101,13 @@ public class ActivityLogIn extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initialization();
-
         loadRefreshTimer();
 
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //validate();
-                startActivity(new Intent(ActivityLogIn.this, ActivityDisplay.class));
+                validate();
+//                startActivity(new Intent(ActivityLogIn.this, ActivityDisplay.class));
             }
         });
 
@@ -114,7 +116,6 @@ public class ActivityLogIn extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityLogIn.this,ActivityRegisterUser.class);
                 startActivity(intent);
-                finish();
             }
         });
     }

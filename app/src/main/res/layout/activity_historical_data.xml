@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityHistoricalData"
-    android:background="@drawable/background_settings"
+    android:background="@drawable/background_historical_data"
     >
 
     <ScrollView
@@ -23,30 +23,37 @@
             <TableRow
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/blue1"
+                >
 
                 <TextView
+                    android:textColor="@color/headerColor"
                     android:textAlignment="center"
                     android:text="Date" />
 
                 <TextView
+                    android:textColor="@color/headerColor"
                     android:textAlignment="center"
                     android:text="Time" />
 
                 <TextView
+                    android:textColor="@color/headerColor"
                     android:textAlignment="center"
                     android:text="Temp" />
 
                 <TextView
+                    android:textColor="@color/headerColor"
                     android:textAlignment="center"
                     android:text="Pres" />
 
 
                 <TextView
+                    android:textColor="@color/headerColor"
                     android:textAlignment="center"
                     android:text="Hum" />
 
                 <TextView
+                    android:textColor="@color/headerColor"
                     android:textAlignment="center"
                     android:text="AQ" />
 

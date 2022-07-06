@@ -23,4 +23,6 @@ public class Static {
      * Type: is double as integers resulted in 0 during division
      */
     public static double refreshTime = 10.0D;
+
+    public static User user;
 }

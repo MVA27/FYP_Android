@@ -52,61 +52,61 @@ public class ActivitySettings extends AppCompatActivity {
 
         initialization();
 
-//        //TODO : if possible move this in the background thread i.e FetchThreshold.java
-//        //Fetch current threshold values and provide it as hint
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                while(Static.threshold == null) SystemClock.sleep(1000);
-//
-//                temperature.setHint(String.valueOf(Static.threshold.getTemperature()));
-//                pressure.setHint(String.valueOf(Static.threshold.getPressure()));
-//                humidity.setHint(String.valueOf(Static.threshold.getHumidity()));
-//                airQuality.setHint(String.valueOf(Static.threshold.getAir_quality()));
-//                refreshTimer.setHint(String.valueOf(Static.refreshTime));
-//            }
-//        });
-//
-//        //Fetch current Flags values and provide it as hint
-//        new FetchFlags(handler,sleepFlag,terminateFlag).start();
-//
-//        //Set Button
-//        buttonSet.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String temperature = ActivitySettings.this.temperature.getText().toString();
-//                String pressure = ActivitySettings.this.pressure.getText().toString();
-//                String humidity = ActivitySettings.this.humidity.getText().toString();
-//                String airQuality = ActivitySettings.this.airQuality.getText().toString();
-//                String refreshTimer = ActivitySettings.this.refreshTimer.getText().toString();
-//
-//                String sleepFlag = ActivitySettings.this.sleepFlag.getText().toString();
-//
-//                //TODO : Show necessary Toasts
-//
-//                if(!refreshTimer.isEmpty()) {
-//                    Static.refreshTime = Double.parseDouble(refreshTimer);
-//                    updateRefreshTimer();
-//                }
-//
-//                //Even if one input is not empty start thread
-//                if(!temperature.isEmpty() || !pressure.isEmpty() || !humidity.isEmpty() || !airQuality.isEmpty()){
-//                    new SetThreshold(ActivitySettings.this,new Handler(),progressBar,temperature,pressure,humidity,airQuality).start();
-//                }
-//
-//                if(!sleepFlag.isEmpty()) new SetFlags(ActivitySettings.this,getResources().getString(R.string.sleep),Integer.parseInt(sleepFlag)).start();
-//            }
-//        });
-//
-//        //Terminate Toggle Button
-//        terminateFlag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-//                if(checked) new SetFlags(ActivitySettings.this,"terminate",1).start();
-//                else new SetFlags(ActivitySettings.this,"terminate",0).start();
-//            }
-//        });
+        //TODO : if possible move this in the background thread i.e FetchThreshold.java
+        //Fetch current threshold values and provide it as hint
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                while(Static.threshold == null) SystemClock.sleep(1000);
+
+                temperature.setHint(String.valueOf(Static.threshold.getTemperature()));
+                pressure.setHint(String.valueOf(Static.threshold.getPressure()));
+                humidity.setHint(String.valueOf(Static.threshold.getHumidity()));
+                airQuality.setHint(String.valueOf(Static.threshold.getAir_quality()));
+                refreshTimer.setHint(String.valueOf(Static.refreshTime));
+            }
+        });
+
+        //Fetch current Flags values and provide it as hint
+        new FetchFlags(handler,sleepFlag,terminateFlag).start();
+
+        //Set Button
+        buttonSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String temperature = ActivitySettings.this.temperature.getText().toString();
+                String pressure = ActivitySettings.this.pressure.getText().toString();
+                String humidity = ActivitySettings.this.humidity.getText().toString();
+                String airQuality = ActivitySettings.this.airQuality.getText().toString();
+                String refreshTimer = ActivitySettings.this.refreshTimer.getText().toString();
+
+                String sleepFlag = ActivitySettings.this.sleepFlag.getText().toString();
+
+                //TODO : Show necessary Toasts
+
+                if(!refreshTimer.isEmpty()) {
+                    Static.refreshTime = Double.parseDouble(refreshTimer);
+                    updateRefreshTimer();
+                }
+
+                //Even if one input is not empty start thread
+                if(!temperature.isEmpty() || !pressure.isEmpty() || !humidity.isEmpty() || !airQuality.isEmpty()){
+                    new SetThreshold(ActivitySettings.this,new Handler(),progressBar,temperature,pressure,humidity,airQuality).start();
+                }
+
+                if(!sleepFlag.isEmpty()) new SetFlags(ActivitySettings.this,getResources().getString(R.string.sleep),Integer.parseInt(sleepFlag)).start();
+            }
+        });
+
+        //Terminate Toggle Button
+        terminateFlag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if(checked) new SetFlags(ActivitySettings.this,"terminate",1).start();
+                else new SetFlags(ActivitySettings.this,"terminate",0).start();
+            }
+        });
     }
 
     //Saves the value of Static.refreshTimer in a SP

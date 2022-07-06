@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.android.rtems.Threads.FetchFlags;
 import com.android.rtems.Threads.FetchParameters;
 import com.android.rtems.Threads.FetchThreshold;
+import com.android.rtems.storage.Static;
 
 public class ActivityDisplay extends AppCompatActivity {
 
@@ -55,8 +56,8 @@ public class ActivityDisplay extends AppCompatActivity {
         initialization();
 
         //Fetch Parameters and Thresholds infinitely
-        //new FetchThreshold().start();
-        //new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality,cards).start();
+        new FetchThreshold().start();
+        new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality,cards).start();
 
         //On clicking options button inflate popup button
         optionsButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +72,10 @@ public class ActivityDisplay extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch(menuItem.getItemId()){
                             case R.id.id_menu_settings:
-                                startActivity(new Intent(ActivityDisplay.this,ActivitySettings.class));
+                                if(Static.user != null) {
+                                    if(Static.user.isRoot())  startActivity(new Intent(ActivityDisplay.this,ActivitySettings.class));
+                                    else Toast.makeText(ActivityDisplay.this, "Access Denied : Login as root user", Toast.LENGTH_SHORT).show();
+                                }
                                 return true;
 
                             case R.id.id_menu_historical_data:

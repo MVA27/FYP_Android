@@ -23,7 +23,7 @@ public class Initializer extends Application {
             //Create Channel
             NotificationChannel channelHighPriority = new NotificationChannel(
               Notification.CHANNEL_HIGH_PRIORITY,
-              "Channel High Priority",
+              "High Priority", //Channel Name
                     NotificationManager.IMPORTANCE_HIGH
             );
             channelHighPriority.setDescription("Parameter Threshold Has Exceeded");

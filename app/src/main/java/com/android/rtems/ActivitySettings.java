@@ -17,6 +17,7 @@ import com.android.rtems.Constants.SharedPreference;
 import com.android.rtems.Threads.FetchFlags;
 import com.android.rtems.Threads.SetFlags;
 import com.android.rtems.Threads.SetThreshold;
+import com.android.rtems.Threads.TruncateTable;
 import com.android.rtems.storage.Static;
 
 public class ActivitySettings extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class ActivitySettings extends AppCompatActivity {
     EditText temperature,pressure,humidity,airQuality,refreshTimer,sleepFlag;
     SwitchCompat terminateFlag;
     ProgressBar progressBar;
-    Button buttonSet;
+    Button buttonSet,buttonTruncateParameterData;
 
     private void initialization(){
         //Threshold
@@ -37,11 +38,12 @@ public class ActivitySettings extends AppCompatActivity {
 
         //Flags
         sleepFlag = findViewById(R.id.id_settings_edit_text_sleep_flag);
-        terminateFlag = findViewById(R.id.id_settings_edit_text_terminate_flag);
+        terminateFlag = findViewById(R.id.id_settings_switch_terminate_flag);
 
         //Others
         progressBar = findViewById(R.id.id_settings_progress_bar);
         buttonSet = findViewById(R.id.id_settings_button_set);
+        buttonTruncateParameterData = findViewById(R.id.id_settings_button_truncate_parameter_data);
     }
 
     @Override
@@ -95,7 +97,7 @@ public class ActivitySettings extends AppCompatActivity {
                     new SetThreshold(ActivitySettings.this,new Handler(),progressBar,temperature,pressure,humidity,airQuality).start();
                 }
 
-                if(!sleepFlag.isEmpty()) new SetFlags(ActivitySettings.this,getResources().getString(R.string.sleep),Integer.parseInt(sleepFlag)).start();
+                if(!sleepFlag.isEmpty()) new SetFlags(ActivitySettings.this,handler,getResources().getString(R.string.sleep),Integer.parseInt(sleepFlag)).start();
             }
         });
 
@@ -103,8 +105,15 @@ public class ActivitySettings extends AppCompatActivity {
         terminateFlag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if(checked) new SetFlags(ActivitySettings.this,"terminate",1).start();
-                else new SetFlags(ActivitySettings.this,"terminate",0).start();
+                if(checked) new SetFlags(ActivitySettings.this,handler,"terminate",1).start();
+                else new SetFlags(ActivitySettings.this,handler,"terminate",0).start();
+            }
+        });
+
+        buttonTruncateParameterData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new TruncateTable(ActivitySettings.this,handler).start();
             }
         });
     }

@@ -1,7 +1,11 @@
 package com.android.rtems.Threads;
 
 import android.content.Context;
+import android.os.Handler;
 import android.os.SystemClock;
+
+import com.android.rtems.utils.ThreadUtility;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -13,11 +17,13 @@ import static com.android.rtems.Constants.Server.protocol;
 public class SetFlags extends Thread {
 
     Context context;
+    Handler handler;
     String flag;
     int value;
 
-    public SetFlags(Context context,String flag,int value){
+    public SetFlags(Context context,Handler handler,String flag,int value){
         this.context = context;
+        this.handler = handler;
         this.flag = flag;
         this.value = value;
     }
@@ -45,25 +51,7 @@ public class SetFlags extends Thread {
                 writer.flush();
             }
 
-            int status = connection.getResponseCode();
-            int seconds = 0;
-
-            while(status != 200 && status != 400){
-
-                status = connection.getResponseCode();
-                SystemClock.sleep(1000);
-                seconds++;
-
-                if(seconds == 10) break; //connection time-out
-            }
-
-            //TODO : Display Toast
-            if(status == 200){
-            }
-            else if(status == 400){
-            }
-            else{
-            }
+            ThreadUtility.responseAction(connection,context,handler,"Flag set","Could not set the flag");
         }
         catch (IOException e) {
             e.printStackTrace();

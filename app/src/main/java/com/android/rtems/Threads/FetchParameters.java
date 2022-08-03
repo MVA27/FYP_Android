@@ -1,14 +1,13 @@
 package com.android.rtems.Threads;
 
+import android.app.Notification;
 import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationManagerCompat;
 import com.android.rtems.R;
 import com.android.rtems.storage.Parameters;
 import com.android.rtems.storage.Static;
@@ -31,8 +30,10 @@ public class FetchParameters extends Thread {
     TextView percentage;
     TextView temperature,pressure,humidity,airQuality;
     CardView[] cards;
+    NotificationManagerCompat notificationManagerCompat;
+    Notification notification;
 
-    public FetchParameters(Context context, Handler handler, ProgressBar progressBar,TextView percentage, TextView temperature, TextView pressure, TextView humidity, TextView airQuality, CardView[] cards) {
+    public FetchParameters(Context context, Handler handler, ProgressBar progressBar,TextView percentage, TextView temperature, TextView pressure, TextView humidity, TextView airQuality, CardView[] cards,NotificationManagerCompat notificationManagerCompat,Notification notification) {
         this.context = context;
         this.handler = handler;
         this.progressBar = progressBar;
@@ -44,6 +45,9 @@ public class FetchParameters extends Thread {
         this.airQuality = airQuality;
 
         this.cards = cards;
+
+        this.notificationManagerCompat = notificationManagerCompat;
+        this.notification = notification;
     }
 
     @Override
@@ -92,6 +96,7 @@ public class FetchParameters extends Thread {
 
             if(Static.parameters.getTemperature() >= Static.threshold.getTemperature()){
                 changeCardColor(0,R.color.cardinal_red);
+                notificationManagerCompat.notify(com.android.rtems.Constants.Notification.NOTIFICATION_THRESHOLD_ID,notification);
             }
             else{
                 changeCardColor(0,R.color.card_background);
@@ -99,6 +104,7 @@ public class FetchParameters extends Thread {
 
             if(Static.parameters.getPressure() >= Static.threshold.getPressure()){
                 changeCardColor(1,R.color.cardinal_red);
+                notificationManagerCompat.notify(com.android.rtems.Constants.Notification.NOTIFICATION_THRESHOLD_ID,notification);
             }
             else{
                 changeCardColor(1,R.color.card_background);
@@ -106,11 +112,11 @@ public class FetchParameters extends Thread {
 
             if(Static.parameters.getHumidity() >= Static.threshold.getHumidity()){
                 changeCardColor(2,R.color.cardinal_red);
+                notificationManagerCompat.notify(com.android.rtems.Constants.Notification.NOTIFICATION_THRESHOLD_ID,notification);
             }
             else{
                 changeCardColor(2,R.color.card_background);
             }
-
 
             /**
              * If Raspberry pi is terminated its value in database is set as -1 because if it was 0
@@ -124,6 +130,7 @@ public class FetchParameters extends Thread {
             }
             else if(Static.parameters.getAir_quality() <= Static.threshold.getAir_quality()){
                 changeCardColor(3,R.color.cardinal_red);
+                notificationManagerCompat.notify(com.android.rtems.Constants.Notification.NOTIFICATION_THRESHOLD_ID,notification);
             }
             else{
                 changeCardColor(3,R.color.card_background);

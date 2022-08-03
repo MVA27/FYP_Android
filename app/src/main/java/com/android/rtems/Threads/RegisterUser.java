@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import com.android.rtems.utils.ThreadUtility;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -56,47 +56,13 @@ public class RegisterUser extends Thread {
                 writer.flush();
             }
 
-            int status = connection.getResponseCode();
-            int seconds = 0;
+            ThreadUtility.responseAction(connection,context,handler,"User Registered","User Registration Failed");
 
-            //STEP 3 : Keep checking response code for 10 seconds
-            while(status != 200 && status != 400){
-
-                status = connection.getResponseCode();
-                Thread.sleep(1000);
-                seconds++;
-
-                if(seconds == 10) break; //connection time-out
-            }
-
-            if(status == 200) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(context, "User Registered", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            else if(status == 400){
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(context, "User Registration Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            else{
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(context, "Connection Issue", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-        } catch (IOException | InterruptedException e) {
+        }
+        catch(IOException e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally{
             handler.post(new Runnable() {
                 @Override
                 public void run() {

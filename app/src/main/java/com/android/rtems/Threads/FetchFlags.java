@@ -5,7 +5,6 @@ import android.os.SystemClock;
 import android.widget.EditText;
 import com.android.rtems.storage.Flags;
 import androidx.appcompat.widget.SwitchCompat;
-
 import com.android.rtems.storage.Static;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -18,8 +17,6 @@ import static com.android.rtems.Constants.Server.domain;
 import static com.android.rtems.Constants.Server.folder;
 import static com.android.rtems.Constants.Server.protocol;
 
-//If handler != null that means Activity settings has called it
-//Else ActivityDisplay has called it to perform infinite fetching
 public class FetchFlags extends Thread {
 
     Handler handler;
@@ -38,7 +35,6 @@ public class FetchFlags extends Thread {
 
         String link = protocol+"://"+domain+folder+"/fetch_flags.php";
 
-        //First do 1 round of fetching, and continue only if handler is null (that means ActivityDisplay has called it)
         try {
             //Connect to Server and fetch JSON object
             URL url = new URL(link);

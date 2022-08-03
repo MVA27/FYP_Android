@@ -261,7 +261,7 @@
             android:text="@string/terminate"
             android:textSize="15sp"
             android:layout_centerHorizontal="true"
-            android:id="@+id/id_settings_edit_text_terminate_flag"
+            android:id="@+id/id_settings_switch_terminate_flag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textOn="1"
@@ -272,6 +272,38 @@
             android:layout_marginRight="20dp"
             android:textColor="#FFFFFF"
             android:padding="10dp"
+            />
+
+        <!-- Truncate Table / Clear Data -->
+        <TextView
+            android:textColor="@color/white"
+            android:layout_toStartOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_text_view_truncate_parameter_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Historical data"
+            android:textAlignment="center"
+            android:layout_below="@+id/id_settings_switch_terminate_flag"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:autoSizeTextType="uniform"
+            android:textSize="15dp"
+            android:padding="10dp"
+            />
+        <Button
+            android:layout_toEndOf="@id/id_settings_center_horizontal"
+            android:id="@+id/id_settings_button_truncate_parameter_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:background="@drawable/background_button_danger"
+            android:textColor="@color/white"
+            android:layout_below="@id/id_settings_switch_terminate_flag"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="clear"
             />
 
         <ProgressBar

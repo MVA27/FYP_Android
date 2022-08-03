@@ -3,12 +3,13 @@ package com.android.rtems;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.rtems.Threads.FetchFlags;
 import com.android.rtems.Threads.FetchParameters;
 import com.android.rtems.Threads.FetchThreshold;
 import com.android.rtems.storage.Static;
@@ -30,6 +30,8 @@ public class ActivityDisplay extends AppCompatActivity {
     TextView temperature,pressure,humidity,airQuality;
     ImageView optionsButton;
     CardView[] cards = new CardView[4];
+    NotificationManagerCompat notificationManagerCompat;
+    Notification notification;
 
     private void initialization(){
         progressBar = findViewById(R.id.id_display_progress_bar);
@@ -45,6 +47,16 @@ public class ActivityDisplay extends AppCompatActivity {
         cards[1] = findViewById(R.id.id_display_card_pressure);
         cards[2] = findViewById(R.id.id_display_card_humidity);
         cards[3] = findViewById(R.id.id_display_card_airquality);
+
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,ActivityDisplay.class), 0);
+        notification = new NotificationCompat.Builder(this, com.android.rtems.Constants.Notification.CHANNEL_HIGH_PRIORITY)
+                .setSmallIcon(R.drawable.icon_warning)
+                .setContentTitle("WARNING")
+                .setContentText("One of the threshold has exceeded")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .build();
     }
 
     @Override
@@ -57,7 +69,7 @@ public class ActivityDisplay extends AppCompatActivity {
 
         //Fetch Parameters and Thresholds infinitely
         new FetchThreshold().start();
-        new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality,cards).start();
+        new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality,cards,notificationManagerCompat,notification).start();
 
         //On clicking options button inflate popup button
         optionsButton.setOnClickListener(new View.OnClickListener() {

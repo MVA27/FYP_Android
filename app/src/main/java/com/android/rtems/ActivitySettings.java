@@ -1,12 +1,19 @@
 package com.android.rtems;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.widget.SwitchCompat;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -19,6 +26,7 @@ import com.android.rtems.Threads.SetFlags;
 import com.android.rtems.Threads.SetThreshold;
 import com.android.rtems.Threads.TruncateTable;
 import com.android.rtems.storage.Static;
+import com.android.rtems.utils.DialogBox;
 
 public class ActivitySettings extends AppCompatActivity {
 
@@ -73,10 +81,28 @@ public class ActivitySettings extends AppCompatActivity {
         //Fetch current Flags values and provide it as hint
         new FetchFlags(handler,sleepFlag,terminateFlag).start();
 
+        //Terminate Toggle Button
+        terminateFlag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if(checked) new SetFlags(ActivitySettings.this,handler,"terminate",1).start();
+                else new SetFlags(ActivitySettings.this,handler,"terminate",0).start();
+            }
+        });
+
+        buttonTruncateParameterData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogBox dialogBox = new DialogBox(new TruncateTable(ActivitySettings.this,handler),null,"Clear parameters data permanently?");
+                dialogBox.show(getSupportFragmentManager(),"tag");
+            }
+        });
+
         //Set Button
         buttonSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String temperature = ActivitySettings.this.temperature.getText().toString();
                 String pressure = ActivitySettings.this.pressure.getText().toString();
                 String humidity = ActivitySettings.this.humidity.getText().toString();
@@ -101,21 +127,6 @@ public class ActivitySettings extends AppCompatActivity {
             }
         });
 
-        //Terminate Toggle Button
-        terminateFlag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if(checked) new SetFlags(ActivitySettings.this,handler,"terminate",1).start();
-                else new SetFlags(ActivitySettings.this,handler,"terminate",0).start();
-            }
-        });
-
-        buttonTruncateParameterData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new TruncateTable(ActivitySettings.this,handler).start();
-            }
-        });
     }
 
     //Saves the value of Static.refreshTimer in a SP

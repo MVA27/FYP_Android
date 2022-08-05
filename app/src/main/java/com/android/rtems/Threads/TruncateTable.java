@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import com.android.rtems.utils.ThreadUtility;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -24,20 +25,26 @@ public class TruncateTable extends Thread {
     @Override
     public void run() {
         String link = protocol+"://"+domain+folder+"/truncate_table.php";
+        String parameters = "tableName=parameters";
 
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    URL url = new URL(link);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        try{
+            URL url = new URL(link);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-                    ThreadUtility.responseAction(connection,context,handler,"Data cleared successfully","Unable to clear data");
-                }
-                catch(IOException e) {
-                    e.printStackTrace();
-                }
+            //POST METHOD
+            connection.getDoOutput();
+            connection.setRequestMethod("POST");
+
+            try(OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream())){
+                writer.write(parameters);
+                writer.flush();
             }
-        });
+
+            ThreadUtility.responseAction(connection,context,handler,"Data Cleared","Unable to clear data");
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

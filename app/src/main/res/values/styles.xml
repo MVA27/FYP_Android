@@ -20,8 +20,10 @@
     <style name="ActivityHistoricalData" parent="AppTheme">
         <item name="android:statusBarColor">@color/blue1</item>
     </style>
-
     <style name="ActivityRegisterUser" parent="AppTheme">
+        <item name="android:statusBarColor">@color/blue1</item>
+    </style>
+    <style name="ActivityOTP" parent="AppTheme">
         <item name="android:statusBarColor">@color/blue1</item>
     </style>
 

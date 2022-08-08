@@ -1,5 +1,4 @@
 package com.android.rtems.utils;
-
 import android.os.Handler;
 import android.widget.Toast;
 import com.android.rtems.R;
@@ -18,8 +17,7 @@ public class Validation {
     private Handler handler;
     private Toast toast;
 
-    public Validation(){
-    }
+    public Validation(){}
 
     public Validation(Handler handler, Toast toast) {
         this.handler = handler;
@@ -127,5 +125,4 @@ public class Validation {
 
         return true;
     }
-
 }

@@ -25,9 +25,11 @@ import com.android.rtems.storage.Static;
 
 public class ActivityDisplay extends AppCompatActivity {
 
+    Handler handler = new Handler();
     ProgressBar progressBar;
     TextView percentage;
     TextView temperature,pressure,humidity,airQuality;
+    TextView thresholdTemperature,thresholdPressure,thresholdHumidity,thresholdAirQuality;
     ImageView optionsButton;
     CardView[] cards = new CardView[4];
     NotificationManagerCompat notificationManagerCompat;
@@ -42,6 +44,12 @@ public class ActivityDisplay extends AppCompatActivity {
         humidity = findViewById(R.id.id_display_humidity_value);
         airQuality = findViewById(R.id.id_display_airquality_value);
         optionsButton = findViewById(R.id.id_display_options_button);
+
+        thresholdTemperature = findViewById(R.id.id_display_temperature_threshold);
+        thresholdPressure = findViewById(R.id.id_display_pressure_threshold);
+        thresholdHumidity = findViewById(R.id.id_display_humidity_threshold);
+        thresholdAirQuality = findViewById(R.id.id_display_airquality_threshold);
+
 
         cards[0] = findViewById(R.id.id_display_card_temperature);
         cards[1] = findViewById(R.id.id_display_card_pressure);
@@ -68,8 +76,8 @@ public class ActivityDisplay extends AppCompatActivity {
         initialization();
 
         //Fetch Parameters and Thresholds infinitely
-        new FetchThreshold().start();
-        new FetchParameters(this,new Handler(),progressBar,percentage,temperature,pressure,humidity,airQuality,cards,notificationManagerCompat,notification).start();
+        new FetchThreshold(handler, thresholdTemperature,thresholdPressure, thresholdHumidity,thresholdAirQuality).start();
+        new FetchParameters(this,handler,progressBar, percentage,temperature,pressure,humidity,airQuality, cards,notificationManagerCompat,notification).start();
 
         //On clicking options button inflate popup button
         optionsButton.setOnClickListener(new View.OnClickListener() {

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.rtems.Constants.SharedPreference;
 import com.android.rtems.Threads.FetchFlags;
@@ -62,8 +63,7 @@ public class ActivitySettings extends AppCompatActivity {
 
         initialization();
 
-        //TODO : if possible move this in the background thread i.e FetchThreshold.java
-        //Fetch current threshold values and provide it as hint
+        //STEP 1: Fetch current threshold values and provide it as hint
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -78,7 +78,7 @@ public class ActivitySettings extends AppCompatActivity {
             }
         });
 
-        //Fetch current Flags values and provide it as hint
+        //STEP 2: Fetch current Flags values and provide it as hint
         new FetchFlags(handler,sleepFlag,terminateFlag).start();
 
         //Terminate Toggle Button
@@ -90,10 +90,11 @@ public class ActivitySettings extends AppCompatActivity {
             }
         });
 
+        //Clear Data Button
         buttonTruncateParameterData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogBox dialogBox = new DialogBox(new TruncateTable(ActivitySettings.this,handler),null,"Clear parameters data permanently?");
+                DialogBox dialogBox = new DialogBox(new TruncateTable(ActivitySettings.this,handler), null,"Clear parameters data permanently?");
                 dialogBox.show(getSupportFragmentManager(),"tag");
             }
         });
@@ -102,31 +103,30 @@ public class ActivitySettings extends AppCompatActivity {
         buttonSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //Fetch values from EditText
                 String temperature = ActivitySettings.this.temperature.getText().toString();
                 String pressure = ActivitySettings.this.pressure.getText().toString();
                 String humidity = ActivitySettings.this.humidity.getText().toString();
                 String airQuality = ActivitySettings.this.airQuality.getText().toString();
                 String refreshTimer = ActivitySettings.this.refreshTimer.getText().toString();
-
                 String sleepFlag = ActivitySettings.this.sleepFlag.getText().toString();
 
-                //TODO : Show necessary Toasts
-
-                if(!refreshTimer.isEmpty()) {
-                    Static.refreshTime = Double.parseDouble(refreshTimer);
-                    updateRefreshTimer();
-                }
-
-                //Even if one input is not empty start thread
+                //Parameter values : Even if one input is not empty start thread
                 if(!temperature.isEmpty() || !pressure.isEmpty() || !humidity.isEmpty() || !airQuality.isEmpty()){
                     new SetThreshold(ActivitySettings.this,new Handler(),progressBar,temperature,pressure,humidity,airQuality).start();
                 }
 
+                //Refresh Timer
+                if(!refreshTimer.isEmpty()) {
+                    Static.refreshTime = Double.parseDouble(refreshTimer);
+                    Toast.makeText(ActivitySettings.this, "Refresh Timer Updated", Toast.LENGTH_SHORT).show();
+                    updateRefreshTimer();
+                }
+
+                //Sleep Flag
                 if(!sleepFlag.isEmpty()) new SetFlags(ActivitySettings.this,handler,getResources().getString(R.string.sleep),Integer.parseInt(sleepFlag)).start();
             }
         });
-
     }
 
     //Saves the value of Static.refreshTimer in a SP

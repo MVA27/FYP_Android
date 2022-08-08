@@ -16,9 +16,8 @@ public class Static {
 
     public static Flags flags;
 
-    //TODO : Load default value as previously saved value from a file, if there is no previous value then assign 0
     /**
-     * Time(in sec) after which new parameter values will be fetched from the server
+     * Time(in sec)
      * Default: time is kept to 10 seconds
      * Type: is double as integers resulted in 0 during division
      */

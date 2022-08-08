@@ -7,11 +7,9 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.android.rtems.storage.Static;
 import com.android.rtems.storage.User;
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -78,16 +76,17 @@ public class VerifyUser extends Thread{
                 if(seconds == 10) break; //connection time-out
             }
 
-            //STEP 3.1 : Get Input Stream and read JSON object of user
-            try(BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))){
-                String JSON = br.readLine();
-                Gson gson = new Gson();
-                Static.user = gson.fromJson(JSON, User.class);
+            if(status == 200) {
+                //STEP 3.1 : Get Input Stream and read JSON object of user
+                try(BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))){
+                    String JSON = br.readLine();
+                    Gson gson = new Gson();
+                    Static.user = gson.fromJson(JSON, User.class);
+                }
+                context.startActivity(intent);
             }
-
-            //STEP 4 : if the status is 400 Display suitable Toast and stop progress bar
-            if(status == 200) context.startActivity(intent);
             else if(status == 400){
+                //STEP 4 : if the status is 400 Display suitable Toast and stop progress bar
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

@@ -39,36 +39,6 @@ public class FetchHistoricalData extends Thread {
         this.tableLayout = tableLayout;
     }
 
-    @Override
-    public void run() {
-        String link = protocol+"://"+domain+folder+"/fetch_historical_data.php";
-
-        //If Data is not already loaded, then connect to server and load
-        if(Static.universalData == null) {
-            try {
-                URL url = new URL(link);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
-                StringBuilder JSONArray = new StringBuilder();
-
-                while ((line = br.readLine()) != null) {
-                    JSONArray.append(line);
-                }
-
-                Gson gson = new Gson();
-                Static.universalData = gson.fromJson(JSONArray.toString(), UniversalData[].class);
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        initializeTable();
-    }
-
     public void initializeTable() {
 
         //Method Specific Utility : Created to add columns to each row of Table
@@ -106,5 +76,34 @@ public class FetchHistoricalData extends Thread {
                 }
             }
         });
+    }
+
+    @Override
+    public void run() {
+        String link = protocol+"://"+domain+folder+"/fetch_historical_data.php";
+
+        //If Data is not already loaded, then connect to server and load
+        if(Static.universalData == null) {
+            try {
+                URL url = new URL(link);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = "";
+                StringBuilder JSONArray = new StringBuilder();
+
+                while ((line = br.readLine()) != null) {
+                    JSONArray.append(line);
+                }
+
+                Gson gson = new Gson();
+                Static.universalData = gson.fromJson(JSONArray.toString(), UniversalData[].class);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        initializeTable();
     }
 }

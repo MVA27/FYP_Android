@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityOTP"
+    android:background="@drawable/background_login"
+    >
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OTP Sent"
+        android:textAlignment="center"
+        android:id="@+id/id_otp_text_view_message"
+        android:layout_above="@id/id_otp_edit_text_otp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <!-- P1: User Name -->
+    <EditText
+        android:id="@+id/id_otp_edit_text_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="user name"
+        android:textAlignment="center"
+        android:layout_above="@id/id_otp_center"
+        android:background="@drawable/background_edit_text"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:autoSizeTextType="uniform"
+        android:textSize="15dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:inputType="text"
+        />
+
+    <!-- P2: OTP -->
+    <EditText
+        android:visibility="gone"
+        android:id="@+id/id_otp_edit_text_otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter OTP"
+        android:textAlignment="center"
+        android:layout_above="@id/id_otp_center"
+        android:background="@drawable/background_edit_text"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:autoSizeTextType="uniform"
+        android:textSize="15dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:inputType="number"
+        />
+
+    <!-- P3: set Password -->
+    <EditText
+        android:visibility="gone"
+        android:id="@+id/id_otp_edit_text_set_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="set password"
+        android:textAlignment="center"
+        android:layout_above="@id/id_otp_edit_text_confirm_password"
+        android:background="@drawable/background_edit_text"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:autoSizeTextType="uniform"
+        android:textSize="15dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:inputType="textPassword"
+        />
+
+    <!-- P3: confirm Password -->
+    <EditText
+        android:visibility="gone"
+        android:id="@+id/id_otp_edit_text_confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="confirm password"
+        android:textAlignment="center"
+        android:layout_above="@id/id_otp_center"
+        android:background="@drawable/background_edit_text"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:autoSizeTextType="uniform"
+        android:textSize="15dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:inputType="textPassword"
+        />
+
+    <View
+        android:id="@+id/id_otp_center"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        />
+
+    <!-- P1: next button-->
+    <Button
+        android:id="@+id/id_otp_button_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="next"
+        android:textColor="@color/buttonTextColor"
+        android:background="@drawable/background_button"
+        android:layout_below="@+id/id_otp_center"
+        />
+
+    <!-- P2: verify button-->
+    <Button
+        android:visibility="gone"
+        android:id="@+id/id_otp_button_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="verify"
+        android:textColor="@color/buttonTextColor"
+        android:background="@drawable/background_button"
+        android:layout_below="@+id/id_otp_center"
+        />
+
+    <!-- P3: set button-->
+    <Button
+        android:visibility="gone"
+        android:id="@+id/id_otp_button_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="set"
+        android:textColor="@color/buttonTextColor"
+        android:background="@drawable/background_button"
+        android:layout_below="@+id/id_otp_center"
+        />
+
+</RelativeLayout>

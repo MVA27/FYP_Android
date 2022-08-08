@@ -33,3 +33,4 @@ public class ActivityHistoricalData extends AppCompatActivity {
         new FetchHistoricalData(this,new Handler(),tableLayout).start();
     }
 }
+

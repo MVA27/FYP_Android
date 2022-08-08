@@ -54,7 +54,6 @@ public class FetchParameters extends Thread {
     public void run() {
 
         String link = protocol+"://"+domain+folder+"/fetch_parameters.php";
-
         while(true) {
             try {
                 //STEP 1 : Connect to the server
@@ -69,7 +68,7 @@ public class FetchParameters extends Thread {
                 Gson gson = new Gson();
                 Static.parameters = gson.fromJson(JSON, Parameters.class);
 
-                //STEP 4 : Display the parameters on the screen (only if the Raspberry pi is not terminated)
+                //STEP 4 : Display the parameters on the screen
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -90,6 +89,7 @@ public class FetchParameters extends Thread {
                     e.printStackTrace();
             }
         }
+        
     }
     public void trackParameters(){
         if(Static.parameters != null && Static.threshold != null){
@@ -148,7 +148,6 @@ public class FetchParameters extends Thread {
         });
     }
 
-    //TODO : Test Refresh Timer Clock for various test cases
     //Refresh Timer Clock
     public void pauseThreadUpdateProgress(){
 

@@ -291,12 +291,34 @@
         
         <!-- Terminate Flag -->
         <androidx.appcompat.widget.SwitchCompat
+            android:layout_toStartOf="@+id/id_settings_center_horizontal"
             android:autoSizeTextType="uniform"
             app:showText="true"
             android:text="@string/terminate"
             android:textSize="15sp"
             android:layout_centerHorizontal="true"
             android:id="@+id/id_settings_switch_terminate_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="1"
+            android:textOff="0"
+            android:layout_below="@id/id_settings_button_truncate_parameter_data"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="#FFFFFF"
+            android:padding="10dp"
+            />
+
+        <!-- sms_service Flag -->
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_toEndOf="@+id/id_settings_center_horizontal"
+            android:autoSizeTextType="uniform"
+            app:showText="true"
+            android:text="@string/sms_service"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/id_settings_switch_sms_service_flag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textOn="1"

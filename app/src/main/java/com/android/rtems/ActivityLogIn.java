@@ -113,6 +113,9 @@ public class ActivityLogIn extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //OTP : Forgot Password Activity
+        forgotPassword.setVisibility(View.GONE);
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

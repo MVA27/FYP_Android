@@ -33,7 +33,7 @@ public class ActivitySettings extends AppCompatActivity {
 
     Handler handler = new Handler();
     EditText temperature,pressure,humidity,airQuality,refreshTimer,sleepFlag;
-    SwitchCompat terminateFlag;
+    SwitchCompat terminateFlag,smsServiceFlag;
     ProgressBar progressBar;
     Button buttonSet,buttonTruncateParameterData;
 
@@ -48,6 +48,7 @@ public class ActivitySettings extends AppCompatActivity {
         //Flags
         sleepFlag = findViewById(R.id.id_settings_edit_text_sleep_flag);
         terminateFlag = findViewById(R.id.id_settings_switch_terminate_flag);
+        smsServiceFlag = findViewById(R.id.id_settings_switch_sms_service_flag);
 
         //Others
         progressBar = findViewById(R.id.id_settings_progress_bar);
@@ -79,7 +80,7 @@ public class ActivitySettings extends AppCompatActivity {
         });
 
         //STEP 2: Fetch current Flags values and provide it as hint
-        new FetchFlags(handler,sleepFlag,terminateFlag).start();
+        new FetchFlags(handler,sleepFlag,terminateFlag,smsServiceFlag).start();
 
         //Terminate Toggle Button
         terminateFlag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -87,6 +88,15 @@ public class ActivitySettings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 if(checked) new SetFlags(ActivitySettings.this,handler,"terminate",1).start();
                 else new SetFlags(ActivitySettings.this,handler,"terminate",0).start();
+            }
+        });
+
+        //sms Service Flag Toggle Button
+        smsServiceFlag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if(checked) new SetFlags(ActivitySettings.this,handler,"sms",1).start();
+                else new SetFlags(ActivitySettings.this,handler,"sms",0).start();
             }
         });
 

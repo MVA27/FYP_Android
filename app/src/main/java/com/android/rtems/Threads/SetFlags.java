@@ -31,6 +31,7 @@ public class SetFlags extends Thread {
     public String getParameterList(){
         if(flag.equals("sleep")) return "sleep="+value;
         if(flag.equals("terminate")) return "terminate="+value;
+        if(flag.equals("sms")) return "sms="+value;
         return "";
     }
 
@@ -51,11 +52,11 @@ public class SetFlags extends Thread {
                 writer.flush();
             }
 
-            ThreadUtility.responseAction(connection,context,handler,"Flag set","Could not set the flag");
+            ThreadUtility.responseAction(connection,context,handler,"Flag set"
+                    ,"Could not set the flag");
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

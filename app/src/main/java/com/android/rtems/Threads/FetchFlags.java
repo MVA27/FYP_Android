@@ -21,13 +21,14 @@ public class FetchFlags extends Thread {
 
     Handler handler;
     EditText sleepFlag;
-    SwitchCompat terminateFlag;
+    SwitchCompat terminateFlag,smsServiceFlag;
 
     //When Parametrized constructor is called, This thread will fetch values only once and stop
-    public FetchFlags(Handler handler,EditText sleepFlag,SwitchCompat terminateFlag){
+    public FetchFlags(Handler handler,EditText sleepFlag,SwitchCompat terminateFlag,SwitchCompat smsServiceFlag){
         this.handler = handler;
         this.sleepFlag = sleepFlag;
         this.terminateFlag = terminateFlag;
+        this.smsServiceFlag = smsServiceFlag;
     }
 
     @Override
@@ -56,8 +57,12 @@ public class FetchFlags extends Thread {
                         SystemClock.sleep(1000);
 
                     sleepFlag.setHint(Integer.toString(Static.flags.getSleep()));
+
                     if (Static.flags.getTerminate() == 1) terminateFlag.setChecked(true);
                     else terminateFlag.setChecked(false);
+
+                    if (Static.flags.getSmsService() == 1) smsServiceFlag.setChecked(true);
+                    else smsServiceFlag.setChecked(false);
                 }
             });
         }

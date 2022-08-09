@@ -41,4 +41,5 @@
     <!-- Flags-->
     <string name="sleep">sleep</string>
     <string name="terminate">terminate</string>
+    <string name="sms_service">sms service</string>
 </resources>

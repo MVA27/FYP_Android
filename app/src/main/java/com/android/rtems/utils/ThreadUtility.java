@@ -1,9 +1,13 @@
 package com.android.rtems.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.widget.Toast;
+
+import com.android.rtems.ActivityError;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
@@ -53,4 +57,14 @@ public class ThreadUtility {
             });
         }
     }
+
+    /**
+     * Customized Intent object that will set flags to destroy all activities in the stack
+     */
+    public static Intent customizedIntent(Context context){
+        Intent intent = new Intent(context, ActivityError.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
+    }
+
 }

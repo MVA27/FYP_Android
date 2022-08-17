@@ -60,7 +60,7 @@ public class RegisterUser extends Thread {
 
         }
         catch(IOException e) {
-            e.printStackTrace();
+            context.startActivity(ThreadUtility.customizedIntent(context));
         }
         finally{
             handler.post(new Runnable() {

@@ -1,11 +1,13 @@
 package com.android.rtems.Threads;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.widget.TextView;
 
 import com.android.rtems.storage.Parameters;
 import com.android.rtems.storage.Static;
+import com.android.rtems.utils.ThreadUtility;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,12 +20,14 @@ import static com.android.rtems.Constants.Server.protocol;
 
 public class FetchThreshold extends Thread {
 
+    Context context;
     Handler handler;
     TextView thresholdTemperature,thresholdPressure,thresholdHumidity,thresholdAirQuality;
 
     public FetchThreshold(){}
 
-    public FetchThreshold(Handler handler,TextView thresholdTemperature,TextView thresholdPressure,TextView thresholdHumidity,TextView thresholdAirQuality){
+    public FetchThreshold(Context context, Handler handler, TextView thresholdTemperature, TextView thresholdPressure, TextView thresholdHumidity, TextView thresholdAirQuality){
+        this.context = context;
         this.handler = handler;
         this.thresholdTemperature = thresholdTemperature;
         this.thresholdPressure = thresholdPressure;
@@ -63,9 +67,14 @@ public class FetchThreshold extends Thread {
                 //STEP 5: wait for few seconds before repeating the process
                 for(int sec = 1; sec <= Static.refreshTime ; sec++) SystemClock.sleep(1000);
 
-            } catch (IOException e) {
-                    e.printStackTrace();
+            }
+            catch (IOException e) {
+                //If an exception occurs, break the loop
+                break;
             }
         }
+
+        //If the loop breaks, that means error occurred. Hence show ActivityError
+        context.startActivity(ThreadUtility.customizedIntent(context));
     }
 }

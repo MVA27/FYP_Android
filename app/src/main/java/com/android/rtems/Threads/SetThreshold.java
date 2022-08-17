@@ -55,10 +55,9 @@ public class SetThreshold extends Thread {
             }
 
             ThreadUtility.responseAction(connection,context,handler,"Threshold set successfully","Unable to set threshold");
-
         }
         catch(IOException e) {
-            e.printStackTrace();
+            context.startActivity(ThreadUtility.customizedIntent(context));
         }
         finally{
             handler.post(new Runnable() {

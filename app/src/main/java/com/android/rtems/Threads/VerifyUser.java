@@ -7,8 +7,14 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+
+import com.android.rtems.ActivityError;
+import com.android.rtems.ActivityLogIn;
 import com.android.rtems.storage.Static;
 import com.android.rtems.storage.User;
+import com.android.rtems.utils.ThreadUtility;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -105,8 +111,9 @@ public class VerifyUser extends Thread{
                 });
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (IOException e) {
+            context.startActivity(ThreadUtility.customizedIntent(context));
         }
     }
 }

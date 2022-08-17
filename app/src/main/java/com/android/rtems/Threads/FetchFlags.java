@@ -1,11 +1,13 @@
 package com.android.rtems.Threads;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.widget.EditText;
 import com.android.rtems.storage.Flags;
 import androidx.appcompat.widget.SwitchCompat;
 import com.android.rtems.storage.Static;
+import com.android.rtems.utils.ThreadUtility;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,12 +21,14 @@ import static com.android.rtems.Constants.Server.protocol;
 
 public class FetchFlags extends Thread {
 
+    Context context;
     Handler handler;
     EditText sleepFlag;
     SwitchCompat terminateFlag,smsServiceFlag;
 
     //When Parametrized constructor is called, This thread will fetch values only once and stop
-    public FetchFlags(Handler handler,EditText sleepFlag,SwitchCompat terminateFlag,SwitchCompat smsServiceFlag){
+    public FetchFlags(Context context, Handler handler,EditText sleepFlag,SwitchCompat terminateFlag,SwitchCompat smsServiceFlag){
+        this.context = context;
         this.handler = handler;
         this.sleepFlag = sleepFlag;
         this.terminateFlag = terminateFlag;
@@ -67,7 +71,7 @@ public class FetchFlags extends Thread {
             });
         }
         catch (IOException e) {
-            e.printStackTrace();
+            context.startActivity(ThreadUtility.customizedIntent(context));
         }
     }
 }

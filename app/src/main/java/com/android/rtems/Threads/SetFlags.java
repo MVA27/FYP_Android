@@ -56,7 +56,7 @@ public class SetFlags extends Thread {
                     ,"Could not set the flag");
         }
         catch (IOException e) {
-            e.printStackTrace();
+            context.startActivity(ThreadUtility.customizedIntent(context));
         }
     }
 }

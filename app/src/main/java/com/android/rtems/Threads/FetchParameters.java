@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.android.rtems.R;
 import com.android.rtems.storage.Parameters;
 import com.android.rtems.storage.Static;
+import com.android.rtems.utils.ThreadUtility;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -85,11 +86,13 @@ public class FetchParameters extends Thread {
                 //STEP 6 : Pause the thread for few seconds and update progress bar
                 pauseThreadUpdateProgress();
 
-            } catch (IOException e) {
-                    e.printStackTrace();
+            }
+            catch (IOException e) {
+                break;
             }
         }
-        
+        //If the loop breaks, that means error occurred. Hence show ActivityError
+        context.startActivity(ThreadUtility.customizedIntent(context));
     }
     public void trackParameters(){
         if(Static.parameters != null && Static.threshold != null){

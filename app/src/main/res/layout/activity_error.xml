@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_historical_data"
+    tools:context=".ActivityError">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ERROR"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:autoSizeTextType="uniform"
+        android:layout_above="@id/id_error_text_view_message"
+        android:layout_margin="20dp"
+        />
+    <TextView
+        android:text="An error occurred. Please try again later."
+        android:id="@+id/id_error_text_view_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:autoSizeTextType="uniform"
+        android:layout_centerInParent="true"
+        />
+    <Button
+        android:id="@+id/id_error_button_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_error_text_view_message"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="Close"
+        android:textColor="@color/white"
+        android:background="@drawable/background_button_danger"
+        />
+
+</RelativeLayout>

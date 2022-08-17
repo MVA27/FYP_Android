@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.rtems.R;
 import com.android.rtems.storage.Static;
 import com.android.rtems.storage.UniversalData;
+import com.android.rtems.utils.ThreadUtility;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -82,26 +83,24 @@ public class FetchHistoricalData extends Thread {
     public void run() {
         String link = protocol+"://"+domain+folder+"/fetch_historical_data.php";
 
-        //If Data is not already loaded, then connect to server and load
-        if(Static.universalData == null) {
-            try {
-                URL url = new URL(link);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        try {
+            URL url = new URL(link);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
-                StringBuilder JSONArray = new StringBuilder();
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line = "";
+            StringBuilder JSONArray = new StringBuilder();
 
-                while ((line = br.readLine()) != null) {
-                    JSONArray.append(line);
-                }
-
-                Gson gson = new Gson();
-                Static.universalData = gson.fromJson(JSONArray.toString(), UniversalData[].class);
-
-            } catch (IOException e) {
-                e.printStackTrace();
+            while ((line = br.readLine()) != null) {
+                JSONArray.append(line);
             }
+
+            Gson gson = new Gson();
+            Static.universalData = gson.fromJson(JSONArray.toString(), UniversalData[].class);
+
+        }
+        catch (IOException e) {
+            //TODO : App crashes without net. Cannot redirect to ActivityError
         }
 
         initializeTable();

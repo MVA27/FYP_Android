@@ -43,7 +43,7 @@ public class TruncateTable extends Thread {
             ThreadUtility.responseAction(connection,context,handler,"Data Cleared","Unable to clear data");
         }
         catch(IOException e) {
-            e.printStackTrace();
+            context.startActivity(ThreadUtility.customizedIntent(context));
         }
 
     }

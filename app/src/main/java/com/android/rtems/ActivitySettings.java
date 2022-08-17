@@ -80,7 +80,7 @@ public class ActivitySettings extends AppCompatActivity {
         });
 
         //STEP 2: Fetch current Flags values and provide it as hint
-        new FetchFlags(handler,sleepFlag,terminateFlag,smsServiceFlag).start();
+        new FetchFlags(this,handler,sleepFlag,terminateFlag,smsServiceFlag).start();
 
         //Terminate Toggle Button
         terminateFlag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

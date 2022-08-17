@@ -76,7 +76,7 @@ public class ActivityDisplay extends AppCompatActivity {
         initialization();
 
         //Fetch Parameters and Thresholds infinitely
-        new FetchThreshold(handler, thresholdTemperature,thresholdPressure, thresholdHumidity,thresholdAirQuality).start();
+        new FetchThreshold(this,handler, thresholdTemperature,thresholdPressure, thresholdHumidity,thresholdAirQuality).start();
         new FetchParameters(this,handler,progressBar, percentage,temperature,pressure,humidity,airQuality, cards,notificationManagerCompat,notification).start();
 
         //On clicking options button inflate popup button

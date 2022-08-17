@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityOtpPhase2"></activity>
+        <activity android:name=".ActivityError"></activity>
+        <activity android:name=".ActivityOtpPhase2" />
         <activity android:name=".ActivityOTP" />
         <activity android:name=".ActivityHistoricalData" />
         <activity android:name=".ActivitySettings" />

@@ -59,7 +59,7 @@ public class RegisterUser extends Thread {
             ThreadUtility.responseAction(connection,context,handler,"User Registered","User Registration Failed");
 
         }
-        catch(IOException e) {
+        catch(Exception e) {
             context.startActivity(ThreadUtility.customizedIntent(context));
         }
         finally{

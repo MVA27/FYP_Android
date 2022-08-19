@@ -256,6 +256,7 @@
 
         <!-- Truncate Table / Clear Data -->
         <TextView
+            android:visibility="gone"
             android:textColor="@color/white"
             android:layout_toStartOf="@id/id_settings_center_horizontal"
             android:id="@+id/id_settings_text_view_truncate_parameter_data"
@@ -273,6 +274,7 @@
             android:padding="10dp"
             />
         <Button
+            android:visibility="gone"
             android:layout_toEndOf="@id/id_settings_center_horizontal"
             android:id="@+id/id_settings_button_truncate_parameter_data"
             android:layout_width="match_parent"

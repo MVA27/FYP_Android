@@ -99,9 +99,7 @@ public class FetchHistoricalData extends Thread {
             Static.universalData = gson.fromJson(JSONArray.toString(), UniversalData[].class);
 
         }
-        catch (IOException e) {
-            //TODO : App crashes without net. Cannot redirect to ActivityError
-        }
+        catch (Exception e) {}
 
         initializeTable();
     }

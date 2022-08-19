@@ -37,9 +37,7 @@ public class FetchFlags extends Thread {
 
     @Override
     public void run() {
-
         String link = protocol+"://"+domain+folder+"/fetch_flags.php";
-
         try {
             //Connect to Server and fetch JSON object
             URL url = new URL(link);
@@ -70,7 +68,7 @@ public class FetchFlags extends Thread {
                 }
             });
         }
-        catch (IOException e) {
+        catch (Exception e) {
             context.startActivity(ThreadUtility.customizedIntent(context));
         }
     }

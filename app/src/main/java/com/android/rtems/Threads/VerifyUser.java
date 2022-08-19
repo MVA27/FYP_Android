@@ -110,9 +110,8 @@ public class VerifyUser extends Thread{
                     }
                 });
             }
-
         }
-        catch (IOException e) {
+        catch (Exception e) {
             context.startActivity(ThreadUtility.customizedIntent(context));
         }
     }

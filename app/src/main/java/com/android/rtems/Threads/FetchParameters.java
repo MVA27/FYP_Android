@@ -53,7 +53,6 @@ public class FetchParameters extends Thread {
 
     @Override
     public void run() {
-
         String link = protocol+"://"+domain+folder+"/fetch_parameters.php";
         while(true) {
             try {
@@ -85,11 +84,8 @@ public class FetchParameters extends Thread {
 
                 //STEP 6 : Pause the thread for few seconds and update progress bar
                 pauseThreadUpdateProgress();
-
             }
-            catch (IOException e) {
-                break;
-            }
+            catch (Exception e){break;}
         }
         //If the loop breaks, that means error occurred. Hence show ActivityError
         context.startActivity(ThreadUtility.customizedIntent(context));

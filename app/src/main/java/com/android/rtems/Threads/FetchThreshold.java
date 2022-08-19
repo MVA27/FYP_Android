@@ -68,10 +68,7 @@ public class FetchThreshold extends Thread {
                 for(int sec = 1; sec <= Static.refreshTime ; sec++) SystemClock.sleep(1000);
 
             }
-            catch (IOException e) {
-                //If an exception occurs, break the loop
-                break;
-            }
+            catch (Exception e) {break;}
         }
 
         //If the loop breaks, that means error occurred. Hence show ActivityError
